@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>联系我 | 潇</title>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>项目经验 | 潇</title>
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="项目经验 | 潇">
+    <meta property="og:image" content="/images/bg.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/images/logo.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/images/logo.ico">
+    <meta name="theme-color" content="#e7eafc">
+    <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -78,16 +86,21 @@
 
     <!-- 导航栏 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-800 mb-2 sm:mb-0">
-                👨‍💻 潇
-            </h1>
-            <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
-                <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
-                <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
-                <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
-                <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
-            </nav>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    👨‍💻 潇
+                </h1>
+                <div class="sm:hidden">
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="site-nav" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">☰</button>
+                </div>
+                <nav id="site-nav" class="hidden sm:flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-3 sm:mt-0">
+                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                    <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                    <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                    <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -147,7 +160,7 @@
                     
                     <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 justify-center">
                         <!-- 邮箱 -->
-                        <a href="mailto:zhangxiaoming@example.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 w-full sm:w-auto justify-center">
+                        <a href="mailto:1420272691@qq.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 w-full sm:w-auto justify-center">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="20" height="16" x="2" y="4" rx="2"/>
                                 <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
@@ -192,6 +205,20 @@
                     link.classList.add('active-tab');
                 }
             });
+
+            // 移动端汉堡菜单切换
+            const navToggleBtn = document.getElementById('nav-toggle');
+            const siteNav = document.getElementById('site-nav');
+            if (navToggleBtn && siteNav) {
+                navToggleBtn.addEventListener('click', () => {
+                    const wasHidden = siteNav.classList.contains('hidden');
+                    if (wasHidden) siteNav.classList.remove('hidden'); else siteNav.classList.add('hidden');
+                    navToggleBtn.setAttribute('aria-expanded', String(!wasHidden));
+                });
+                siteNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                    if (window.innerWidth < 640) siteNav.classList.add('hidden');
+                }));
+            }
 
             // 显示通知
             // type 可用值: 'success'（成功），'error'（错误）
