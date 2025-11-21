@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我 | 潇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
+        }
+
+        .frosted-glass {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .active-tab {
+            color: #3b82f6 !important;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: none !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .tab-link {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input, .contact-form textarea {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(120%);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+        }
+        .notification.show {
+            transform: translateX(0);
+        }
+        .notification.success {
+            background-color: #10b981;
+        }
+        .notification.error {
+            background-color: #ef4444;
+        }
+    </style>
+</head>
+<body class="text-gray-800 min-h-screen">
+
+    <!-- 通知区域 -->
+    <div id="notification" class="notification"></div>
+
+    <!-- 导航栏 -->
+    <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2 sm:mb-0">
+                👨‍💻 潇
+            </h1>
+            <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
+                <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
+
+        <!-- 页面容器 -->
+        <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
+            <section class="py-6">
+                <div class="max-w-3xl mx-auto">
+                    <h3 class="text-3xl font-bold mb-6 text-gray-900 text-center">期待您的合作</h3>
+                    <p class="text-lg text-gray-600 mb-8 text-center">
+                        我坚信积极主动和快速学习是成功的关键。如果您认为我能够为您的团队带来价值，请随时与我取得联系。
+                    </p>
+                    
+                    <!-- 联系表单 -->
+                    <!--
+                        To enable email submissions without a backend, sign up for Formspree
+                        and replace `YOUR_FORMSPREE_ID` with your form id. Example action:
+                        action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
+                    -->
+                    <form id="contact-form" class="contact-form space-y-6 mb-10" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                        <!-- Honeypot field for basic spam protection -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="请输入您的邮箱">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">主题</label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="请输入邮件主题">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">留言</label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                placeholder="请输入您的留言..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" 
+                                class="px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+                                发送消息
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 justify-center">
+                        <!-- 邮箱 -->
+                        <a href="mailto:zhangxiaoming@example.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 w-full sm:w-auto justify-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            <span>1420272691@qq.com</span>
+                        </a>
+                        
+                        <!-- GitHub -->
+                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-gray-700 border border-gray-200 w-full sm:w-auto justify-center">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 如需手动更新年份，请定期检查此处 -->
+            <p>&copy; <span id="current-year"></span> 潇. 基于学习目的，持续迭代中。</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 将所有脚本逻辑整理到一个 DOMContentLoaded 回调中
+        document.addEventListener('DOMContentLoaded', () => {
+            // 自动设置页脚年份
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // 动态设置导航高亮
+            const navLinks = document.querySelectorAll('nav .tab-link');
+            const currentPath = location.pathname.replace(/\\/g, '/').replace(/^.*\//, '');
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').replace(/\\/g, '/').replace(/^.*\//, '');
+                if (linkPath === currentPath) {
+                    link.classList.add('active-tab');
+                }
+            });
+
+            // 显示通知
+            // type 可用值: 'success'（成功），'error'（错误）
+            const notification = document.getElementById('notification');
+            function showNotification(message, type = 'success') {
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
+
+            // 联系表单提交处理：优先使用表单的 action（例如 Formspree）；否则使用前端模拟处理
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // 防止机器人提交 honeypot 字段
+                    if (contactForm.querySelector('input[name="_gotcha"]').value) {
+                        return; // detect bot
+                    }
+
+                    // 如果表单配置了 action（例如 Formspree），让浏览器提交表单
+                    const action = contactForm.getAttribute('action');
+                    if (action && action.includes('formspree.io')) {
+                        contactForm.submit();
+                        return;
+                    }
+
+                    // 否则使用前端模拟显示消息（本地开发时使用）
+                    const formData = new FormData(contactForm);
+                    const data = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        subject: formData.get('subject'),
+                        message: formData.get('message')
+                    };
+
+                    // 简单验证
+                    if (!data.name || !data.email || !data.subject || !data.message) {
+                        showNotification('请填写所有必填字段', 'error');
+                        return;
+                    }
+
+                    console.log('发送邮件:', data);
+                    showNotification('测试功能，尚未实装');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+

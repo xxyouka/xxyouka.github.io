@@ -1,0 +1,15 @@
+{
+  "name": "潇 - 个人主页",
+  "short_name": "潇",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

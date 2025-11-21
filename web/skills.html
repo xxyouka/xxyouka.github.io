@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核心技能 | 潇</title>
+    <meta name="description" content="潇 的核心技能：Web 基础、前端框架与开发流程。欢迎查看项目与联系。">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="核心技能 | 潇">
+    <meta property="og:description" content="潇 的核心技能：Web 基础、前端框架与开发流程。">
+    <meta property="og:image" content="/images/bg.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
+        }
+
+        .frosted-glass {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .active-tab {
+            color: #3b82f6 !important;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: none !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .tab-link {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 min-h-screen">
+
+    <!-- 导航栏 -->
+    <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2 sm:mb-0">
+                👨‍💻 潇
+            </h1>
+            <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
+                <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                <a href="skills.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                <a href="contact.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
+
+        <!-- 页面容器 -->
+        <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
+            <section class="py-6">
+                <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">核心技能与特质</h3>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-blue-500 mb-3">💻</div>
+                        <h4 class="text-xl font-semibold mb-2">Web 基础</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                            <li>HTML5 (语义化)</li>
+                            <li>CSS3 (Flexbox, Grid)</li>
+                            <li>JavaScript (ES6+)</li>
+                        </ul>
+                    </div>
+
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-green-500 mb-3">🚀</div>
+                        <h4 class="text-xl font-semibold mb-2">快速学习能力</h4>
+                        <p class="text-gray-600">
+                            对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。
+                        </p>
+                    </div>
+
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-yellow-500 mb-3">💡</div>
+                        <h4 class="text-xl font-semibold mb-2">问题解决者</h4>
+                        <p class="text-gray-600">
+                            享受分析和解决复杂问题的过程，乐于探索最佳实践方案。
+                        </p>
+                    </div>
+
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-red-500 mb-3">🛠️</div>
+                        <h4 class="text-xl font-semibold mb-2">工具与实践</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                            <li>Git / GitHub</li>
+                            <li>响应式设计</li>
+                            <li>VS Code / 开发者工具</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-purple-500 mb-3">📱</div>
+                        <h4 class="text-xl font-semibold mb-2">前端框架</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                            <li>React 基础</li>
+                            <li>Vue.js 入门</li>
+                            <li>Tailwind CSS</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="text-3xl text-indigo-500 mb-3">🔧</div>
+                        <h4 class="text-xl font-semibold mb-2">开发流程</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                            <li>版本控制</li>
+                            <li>调试技巧</li>
+                            <li>代码规范</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
+            <script>
+                document.getElementById('year').textContent = new Date().getFullYear();
+            </script>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://xxyouka.github.io/sitemap.xml
+# Crawl-delay: 10 (uncomment to throttle if needed)

@@ -1,82 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>潇 | 个人主页</title>
+    <meta name="description" content="潇 的个人主页 — 学习前端与构建优雅、直观的用户体验。欢迎查看技能、项目并联系我。">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="潇 | 个人主页">
+    <meta property="og:description" content="学习前端、构建优雅用户体验 — 这是我的个人主页，欢迎联系。">
+    <meta property="og:image" content="/images/bg.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preload" as="image" href="/images/bg.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 1. 全局设置：去除浏览器默认的边距 */
         body {
-            margin: 0;
-            padding: 0;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            /* 这里设置背景图 */
-            /* 假设你的背景图片叫 bg.jpg */
-            background-image: url('images/bg.jpg');
-            background-size: cover; /* 让图片铺满整个屏幕 */
-            background-position: center;
-            background-attachment: fixed; /* 滚动页面时背景不动 */
-            height: 100vh; /* 确保高度占满屏幕 */
-            display: flex; /*这三行是为了让卡片垂直居中 */
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
         }
 
-        /* 2. 中间的白色卡片 */
-        .card {
-            background: rgba(255, 255, 255, 0.95); /* 白色背景，微微透明 */
-            width: 400px;
-            padding: 50px;
-            border-radius: 20px; /* 卡片圆角 */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2); /* 卡片阴影，增加立体感 */
-            text-align: center;
-            backdrop-filter: blur(5px); /* 背景模糊特效（毛玻璃） */
+        .frosted-glass {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .card-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-
-        /* 3. 极光按钮样式 */
-        .btn {
-            display: inline-block;
-            padding: 15px 40px;
-            /* 渐变色背景：从紫色到粉色 */
-            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
-            color: white;
-            text-decoration: none; /* 去掉下划线 */
-            border-radius: 50px; /* 变成胶囊形状的圆角 */
-            font-weight: bold;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3); /* 按钮发光的阴影 */
-            transition: all 0.3s ease; /* 动画过渡时间 */
+        
+        .active-tab {
+            color: #3b82f6 !important;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: none !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
         }
-
-        /* 4. 鼠标悬停时的动画 */
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05); /* 稍微上浮并放大 */
-            box-shadow: 0 15px 25px rgba(108, 92, 231, 0.5); /* 阴影变深 */
+        
+        .tab-link {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-800 min-h-screen">
 
-    <div class="card">
-        <img src="images/avatar.jpg" width="100" style="border-radius: 50%; margin-bottom: 20px;">
-        
-        <h1>Hello World! 这是我的本地开发版本</h1>
-        <p>
-            💻 硬件爱好者 | 🔧 正在折腾 Arduino <br>
-            欢迎来到我的数字花园
-        </p>
-        
-        <a href="https://github.com/xxyouka" class="btn" target="_blank">访问我的 GitHub</a>
-    </div>
+    <!-- 导航栏 -->
+    <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-2 sm:mb-0">
+                👨‍💻 潇
+            </h1>
+            <nav class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
+                <a href="index.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                <a href="web/skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                <a href="web/projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                <a href="web/contact.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+            </nav>
+        </div>
+    </header>
 
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
+
+        <!-- 页面容器 -->
+        <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
+            <section class="py-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <img class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-gray-300 shadow-lg"
+                            src="images/avatar.jpg"
+                            alt="个人头像">
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
+                        你好，世界！
+                    </h2>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-5">
+                        我是潇，一位充满好奇心的学习者。
+                    </h3>
+                    <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        我正在积极探索前端开发的奥秘，致力于将学习到的知识转化为优雅、直观的用户体验。
+                        虽然目前没有任何项目经验，但我具备快速学习和解决问题的强大能力，并渴望在实践中不断成长。
+                    </p>
+                    <a href="web/contact.html" 
+                            class="inline-block px-7 py-3 text-lg font-medium text-white bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300 transform hover:scale-105 shadow-xl">
+                        联系我
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p>&copy; 2025 潇. 基于学习目的，持续迭代中。</p>
+        </div>
+    </footer>
 </body>
 </html>
