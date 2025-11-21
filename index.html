@@ -4,44 +4,77 @@
     <meta charset="UTF-8">
     <title>我的个人主页</title>
     <style>
+        /* 1. 全局设置：去除浏览器默认的边距 */
         body {
+            margin: 0;
+            padding: 0;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            /* 这里设置背景图 */
+            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1920'); 
+            background-size: cover; /* 让图片铺满整个屏幕 */
+            background-position: center;
+            background-attachment: fixed; /* 滚动页面时背景不动 */
+            height: 100vh; /* 确保高度占满屏幕 */
+            display: flex; /*这三行是为了让卡片垂直居中 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 2. 中间的白色卡片 */
+        .card {
+            background: rgba(255, 255, 255, 0.95); /* 白色背景，微微透明 */
+            width: 400px;
+            padding: 50px;
+            border-radius: 20px; /* 卡片圆角 */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); /* 卡片阴影，增加立体感 */
             text-align: center;
-            background-color: #f0f2f5;
-            color: #333;
-            margin-top: 50px;
+            backdrop-filter: blur(5px); /* 背景模糊特效（毛玻璃） */
         }
-        .container {
-            background: white;
-            width: 600px;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
-        h1 { color: #2c3e50; }
-        p { font-size: 18px; line-height: 1.6; }
-        .social-link {
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* 3. 极光按钮样式 */
+        .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #24292e; /* GitHub 黑色 */
+            padding: 15px 40px;
+            /* 渐变色背景：从紫色到粉色 */
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
+            text-decoration: none; /* 去掉下划线 */
+            border-radius: 50px; /* 变成胶囊形状的圆角 */
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3); /* 按钮发光的阴影 */
+            transition: all 0.3s ease; /* 动画过渡时间 */
         }
-        .social-link:hover { background-color: #444; }
+
+        /* 4. 鼠标悬停时的动画 */
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05); /* 稍微上浮并放大 */
+            box-shadow: 0 15px 25px rgba(108, 92, 231, 0.5); /* 阴影变深 */
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>你好，我是 [你的名字] 👋</h1>
-        <p>欢迎来到我的个人主页！</p>
-        <p>我是一名正在学习硬件和网页开发的学生。</p>
-        <p>这里将记录我的学习笔记和有趣的项目。</p>
+    <div class="card">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" width="100" style="border-radius: 50%; margin-bottom: 20px;">
         
-        <a href="https://github.com/你的用户名" class="social-link" target="_blank">访问我的 GitHub</a>
+        <h1>你好，我是 [你的名字] </h1>
+        <p>
+            💻 硬件爱好者 | 🔧 正在折腾 Arduino <br>
+            欢迎来到我的数字花园
+        </p>
+        
+        <a href="https://github.com/你的用户名" class="btn" target="_blank">访问我的 GitHub</a>
     </div>
 
 </body>
