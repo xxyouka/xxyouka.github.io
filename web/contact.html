@@ -1,42 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
+    <!-- 文档基础设置 -->
     <meta charset="UTF-8">
+    <!-- 响应式视口设置，确保在不同设备上正常显示，viewport-fit=cover 适配刘海屏设备 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>联系我 | 潇</title>
+
+    <!-- SEO 相关元数据 -->
     <meta name="description" content="联系潇 - 期待您的合作与沟通">
     <meta name="robots" content="index, follow">
+
+    <!-- 社交媒体分享元数据 -->
     <meta property="og:title" content="联系我 | 潇">
     <meta property="og:description" content="联系潇 - 期待您的合作与沟通">
-    <meta property="og:image" content="/images/bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
+
+    <!-- 网站图标设置 -->
     <link rel="icon" href="/images/logo.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo.ico">
+
+    <!-- 主题颜色和PWA配置 -->
     <meta name="theme-color" content="#e7eafc">
     <link rel="manifest" href="/manifest.json">
+
+    <!-- 引入 Tailwind CSS 框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 自定义样式 -->
     <style>
+        /* 基础字体设置 */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            /* 渐变背景 - 从左上到右下的渐变色 */
             background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
         }
 
+        /* 毛玻璃效果样式 */
         .frosted-glass {
             background-color: rgba(255, 255, 255, 0.75);
+            /* 背景模糊效果，增强视觉层次感 */
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
 
+        /* 卡片悬停动画效果 */
         .card-hover-effect {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .card-hover-effect:hover {
+            /* 悬停时轻微上浮效果 */
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-        
+
+        /* 激活状态的标签页样式 */
         .active-tab {
             color: #3b82f6 !important;
             background-color: rgba(255, 255, 255, 0.95) !important;
@@ -44,19 +66,26 @@
             border-radius: 9999px !important;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
         }
-        
+
+        /* 标签页链接过渡效果 */
         .tab-link {
             transition: all 0.3s ease;
         }
-        
-        .contact-form input, .contact-form textarea {
+
+        /* 联系表单输入框样式 */
+        .contact-form input,
+        .contact-form textarea {
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .contact-form input:focus, .contact-form textarea:focus {
+
+        /* 表单输入框聚焦状态 */
+        .contact-form input:focus,
+        .contact-form textarea:focus {
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        
+
+        /* 通知消息样式 */
         .notification {
             position: fixed;
             top: 20px;
@@ -66,20 +95,27 @@
             color: white;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            /* 初始状态隐藏在屏幕右侧 */
             transform: translateX(120%);
             transition: transform 0.4s ease;
             z-index: 1000;
         }
+
+        /* 通知消息显示状态 */
         .notification.show {
             transform: translateX(0);
         }
+
+        /* 成功通知样式 */
         .notification.success {
             background-color: #10b981;
         }
+
+        /* 错误通知样式 */
         .notification.error {
             background-color: #ef4444;
         }
-        
+
         /* 移动端导航菜单样式 */
         .mobile-nav {
             display: none;
@@ -97,11 +133,13 @@
             justify-content: center;
             padding: 2rem;
         }
-        
+
+        /* 移动端导航菜单打开状态 */
         .mobile-nav.open {
             display: flex;
         }
-        
+
+        /* 移动端导航链接样式 */
         .mobile-nav a {
             display: block;
             width: 100%;
@@ -114,12 +152,13 @@
             border-radius: 9999px;
             transition: all 0.3s ease;
         }
-        
+
+        /* 移动端激活状态导航链接 */
         .mobile-nav a.active-tab {
             background-color: rgba(59, 130, 246, 0.1);
         }
-        
-        /* 触摸目标优化 */
+
+        /* 触摸目标优化 - 确保按钮足够大以便触摸（Apple HIG 推荐 44px） */
         .touch-target {
             min-height: 44px;
             min-width: 44px;
@@ -127,61 +166,63 @@
             align-items: center;
             justify-content: center;
         }
-        
-        /* 移动端字体响应式优化 */
+
+        /* 移动端响应式文本优化 */
         @media (max-width: 640px) {
+
+            /* 响应式文本基础设置 */
             .responsive-text {
                 font-size: 1.125rem;
                 line-height: 1.6;
             }
-            
+
             /* 移动端内容区域内边距优化 */
             .mobile-padding {
                 padding: 1.5rem;
             }
-            
-            /* 移动端标题大小优化 */
+
+            /* 移动端主标题大小优化 */
             .mobile-heading {
                 font-size: 2.25rem;
             }
-            
+
             /* 移动端副标题大小优化 */
             .mobile-subheading {
                 font-size: 1.5rem;
             }
-            
-            /* 移动端表单元素优化 */
+
+            /* 移动端表单输入框优化 */
             .form-input {
                 padding: 1rem;
                 font-size: 1rem;
             }
-            
+
             /* 移动端按钮优化 */
             .mobile-button {
                 padding: 1rem 2rem;
                 font-size: 1.125rem;
                 width: 100%;
             }
-            
+
             /* 移动端联系卡片优化 */
             .contact-card {
                 width: 100%;
                 margin-bottom: 1rem;
                 justify-content: center;
             }
-            
+
             /* 移动端表单间距优化 */
             .form-spacing {
                 margin-bottom: 1.5rem;
             }
         }
-        
+
         /* 联系卡片图标样式 */
         .contact-icon {
             font-size: 1.5rem;
             flex-shrink: 0;
         }
-        
+
         /* 联系卡片布局优化 */
         .contact-card {
             display: flex;
@@ -191,44 +232,54 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-        
+
         /* 联系卡片内容区域 */
         .contact-card-content {
             margin-left: 0.75rem;
         }
     </style>
 </head>
-<body class="text-gray-800 min-h-screen">
 
-    <!-- 通知区域 -->
+<body class="text-gray-800 min-h-screen">
+    <!-- 通知区域 - 用于显示表单提交反馈 -->
     <div id="notification" class="notification"></div>
 
-    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
+    <!-- 导航栏 -->
+    <!-- 使用毛玻璃效果，固定在顶部，带阴影和底部边框 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
+                <!-- 网站标题/Logo -->
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+
+                <!-- 移动端导航切换按钮 - 仅在移动端显示 -->
                 <div class="flex items-center sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
-                            class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
+                    <!-- 汉堡菜单按钮，带有可访问性属性 -->
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
+
+                <!-- 桌面端导航菜单 - 在移动端隐藏，在桌面端显示 -->
                 <nav class="hidden sm:flex space-x-4">
-                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
-                    <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
-                    <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
-                    <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">联系我</a>
+                    <a href="../index.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
+                    <a href="skills.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                    <a href="projects.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                    <a href="contact.html"
+                        class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
     <!-- 移动端专用导航菜单 -->
+    <!-- 全屏覆盖式导航，带模糊背景，默认隐藏 -->
     <div id="mobile-nav" class="mobile-nav">
         <a href="../index.html">关于我</a>
         <a href="skills.html">核心技能</a>
@@ -236,42 +287,50 @@
         <a href="contact.html" class="active-tab">联系我</a>
         <!-- 关闭按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- 关闭图标 SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
     </div>
 
-    <!-- 修改：添加了移动端内边距优化类 -->
+    <!-- 主内容区域 -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
-
-        <!-- 页面容器 -->
+        <!-- 页面内容容器，使用毛玻璃效果 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
+                <!-- 页面标题和描述区域 -->
                 <div class="max-w-3xl mx-auto">
-                    <!-- 修改：添加了移动端标题优化类 -->
+                    <!-- 页面主标题 -->
                     <h3 class="text-3xl sm:text-4xl font-bold mb-6 text-gray-900 text-center mobile-heading">期待您的合作</h3>
-                    <!-- 修改：添加了响应式文本类 -->
+                    <!-- 页面描述文本 -->
                     <p class="responsive-text text-gray-600 mb-8 text-center form-spacing">
                         我坚信积极主动和快速学习是成功的关键。如果您认为我能够为您的团队带来价值，请随时与我取得联系。
                     </p>
-                    
+
                     <!-- 联系表单 -->
                     <!--
-                        To enable email submissions without a backend, sign up for Formspree
-                        and replace `YOUR_FORMSPREE_ID` with your form id. Example action:
+                        表单提交说明：
+                        要启用邮件提交功能（无需后端），请注册 Formspree 服务
+                        并将 `YOUR_FORMSPREE_ID` 替换为您的表单 ID。示例 action：
                         action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
                     -->
-                    <form id="contact-form" class="contact-form space-y-6 mb-10" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-                        <!-- Honeypot field for basic spam protection -->
+                    <form id="contact-form" class="contact-form space-y-6 mb-10"
+                        action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                        <!-- Honeypot 字段 - 用于基础垃圾邮件防护 -->
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+                        <!-- 姓名和邮箱字段网格布局 -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 form-spacing">
+                            <!-- 姓名输入字段 -->
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
                                 <input type="text" id="name" name="name" required
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                     placeholder="请输入您的姓名">
                             </div>
+                            <!-- 邮箱输入字段 -->
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
                                 <input type="email" id="email" name="email" required
@@ -279,44 +338,62 @@
                                     placeholder="请输入您的邮箱">
                             </div>
                         </div>
+
+                        <!-- 主题输入字段 -->
                         <div class="form-spacing">
                             <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">主题</label>
                             <input type="text" id="subject" name="subject" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                 placeholder="请输入邮件主题">
                         </div>
+
+                        <!-- 留言文本区域 -->
                         <div class="form-spacing">
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-2">留言</label>
                             <textarea id="message" name="message" rows="5" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                 placeholder="请输入您的留言..."></textarea>
                         </div>
+
+                        <!-- 提交按钮 -->
                         <div class="text-center">
-                            <button type="submit" 
-                                class="px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105 mobile-button touch-target">
+                            <button type="submit"
+                                class="inline-flex items-center justify-center px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105 mobile-button touch-target">
                                 发送消息
                             </button>
                         </div>
                     </form>
-                    
+
+                    <!-- 联系信息卡片区域 -->
                     <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0 justify-center">
-                        <!-- 邮箱 -->
-                        <a href="mailto:1420272691@qq.com" class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+                        <!-- 邮箱联系卡片 -->
+                        <a href="mailto:1420272691@qq.com"
+                            class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+                            <!-- 邮箱图标 -->
                             <div class="contact-icon text-blue-500">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                    <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7" />
                                 </svg>
                             </div>
                             <div class="contact-card-content">
                                 <span class="text-lg font-semibold text-blue-600">1420272691@qq.com</span>
                             </div>
                         </a>
-                        
-                        <!-- GitHub -->
-                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+
+                        <!-- GitHub 联系卡片 -->
+                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank"
+                            class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+                            <!-- GitHub 图标 -->
                             <div class="contact-icon text-gray-700">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                        clip-rule="evenodd" />
+                                </svg>
                             </div>
                             <div class="contact-card-content">
                                 <span class="text-lg font-semibold text-gray-700">GitHub</span>
@@ -331,11 +408,12 @@
     <!-- 页脚 -->
     <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- 如需手动更新年份，请定期检查此处 -->
+            <!-- 动态年份显示 -->
             <p>&copy; <span id="current-year"></span> 潇. 基于学习目的，持续迭代中。</p>
         </div>
     </footer>
-    
+
+    <!-- JavaScript 功能 -->
     <script>
         // 将所有脚本逻辑整理到一个 DOMContentLoaded 回调中
         document.addEventListener('DOMContentLoaded', () => {
@@ -349,19 +427,21 @@
             const navToggle = document.getElementById('nav-toggle');
             const mobileNav = document.getElementById('mobile-nav');
             const closeNav = document.getElementById('close-nav');
-            
+
             // 打开移动端导航
             navToggle.addEventListener('click', () => {
                 mobileNav.classList.add('open');
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
+                // 防止背景内容滚动，提升移动端体验
+                document.body.style.overflow = 'hidden';
             });
-            
+
             // 关闭移动端导航
             closeNav.addEventListener('click', () => {
                 mobileNav.classList.remove('open');
+                // 恢复背景滚动
                 document.body.style.overflow = '';
             });
-            
+
             // 点击导航链接关闭菜单
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
@@ -370,13 +450,14 @@
                 });
             });
 
-            // 显示通知
+            // 显示通知函数
             // type 可用值: 'success'（成功），'error'（错误）
             const notification = document.getElementById('notification');
             function showNotification(message, type = 'success') {
                 notification.textContent = message;
                 notification.className = `notification ${type}`;
                 notification.classList.add('show');
+                // 4秒后自动隐藏通知
                 setTimeout(() => {
                     notification.classList.remove('show');
                 }, 4000);
@@ -390,7 +471,7 @@
 
                     // 防止机器人提交 honeypot 字段
                     if (contactForm.querySelector('input[name="_gotcha"]').value) {
-                        return; // detect bot
+                        return; // 检测到机器人提交
                     }
 
                     // 如果表单配置了 action（例如 Formspree），让浏览器提交表单
@@ -415,6 +496,7 @@
                         return;
                     }
 
+                    // 在实际项目中，这里应该发送到后端服务器
                     console.log('发送邮件:', data);
                     showNotification('消息已发送！我会尽快回复您。');
                     contactForm.reset();
@@ -423,4 +505,5 @@
         });
     </script>
 </body>
+
 </html>

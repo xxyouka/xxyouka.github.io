@@ -1,26 +1,91 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<!-- 
+  项目经验页面 - 详细注释版
+  作者: 潇
+  创建日期: 2023年
+  描述: 展示个人学习项目和进度，包含已完成和进行中的项目
+-->
+
 <head>
+    <!-- 
+      文档基础设置
+      - 字符编码设置为UTF-8，确保中文正确显示
+      - viewport设置确保页面在不同设备上正常显示，viewport-fit=cover适配刘海屏设备
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>项目经验 | 潇</title>
-    <meta name="description" content="潇 的项目经验：React、响应式网站、API 集成等练习项目集合。">
+    <title>学习项目 | 潇</title>
+    
+    <!-- 
+      SEO 相关元数据
+      - description: 页面描述，用于搜索引擎展示
+      - robots: 指示搜索引擎索引和跟踪页面链接
+    -->
+    <meta name="description" content="潇 的项目经验：个人网站、微信小程序、安卓App、单片机、Java和JUnit等项目集合。">
     <meta name="robots" content="index, follow">
+    
+    <!-- 
+      社交媒体分享元数据
+      - og: Open Graph协议，用于社交媒体分享时的预览信息
+      - twitter:card: Twitter卡片类型设置
+    -->
     <meta property="og:title" content="项目经验 | 潇">
-    <meta property="og:description" content="实践项目合集：待办应用、响应式网站、天气查询等。">
+    <meta property="og:description" content="项目合集：已完成的个人网站，以及进行中的微信小程序开发、安卓App开发、单片机学习、Java和JUnit单元测试等。">
     <meta property="og:image" content="/images/bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- 
+      网站图标设置
+      - favicon: 浏览器标签页图标
+      - apple-touch-icon: iOS设备上添加到主屏幕的图标
+    -->
     <link rel="icon" href="/images/logo.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo.ico">
+    
+    <!-- 
+      主题颜色和PWA配置
+      - theme-color: 浏览器地址栏颜色
+      - manifest: PWA应用清单文件
+    -->
     <meta name="theme-color" content="#e7eafc">
     <link rel="manifest" href="/manifest.json">
+    
+    <!-- 
+      引入 Tailwind CSS 框架
+      - 用于快速构建现代化UI的CSS框架
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 
+      引入 Font Awesome 图标库
+      - 提供丰富的矢量图标
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 
+      自定义样式
+      - 补充Tailwind CSS未提供的样式
+      - 实现特殊效果如毛玻璃效果、动画等
+    -->
     <style>
+        /* 
+          基础字体设置
+          - 使用Inter字体，这是一个现代化的无衬线字体
+          - 设置渐变背景，从左上到右下的渐变色
+        */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
             background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
         }
 
+        /* 
+          毛玻璃效果样式
+          - 半透明背景配合背景模糊，增强视觉层次感
+          - backdrop-filter: 实现背景模糊和饱和度调整
+          - border: 半透明边框增强效果
+          - box-shadow: 添加轻微阴影增强立体感
+        */
         .frosted-glass {
             background-color: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px) saturate(180%);
@@ -28,16 +93,26 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
-        
+
+        /* 
+          卡片悬停动画效果
+          - 定义过渡效果，使悬停变化更平滑
+          - 悬停时轻微上浮并增强阴影，增强交互感
+        */
         .card-hover-effect {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .card-hover-effect:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
+        /* 
+          激活状态的标签页样式
+          - 高亮显示当前活动页面
+          - 使用蓝色主题色，配合圆角和阴影
+        */
         .active-tab {
             color: #3b82f6 !important;
             background-color: rgba(255, 255, 255, 0.95) !important;
@@ -45,12 +120,18 @@
             border-radius: 9999px !important;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
         }
-        
+
+        /* 标签页链接过渡效果 */
         .tab-link {
             transition: all 0.3s ease;
         }
-        
-        /* 移动端导航菜单样式 */
+
+        /* 
+          移动端导航菜单样式
+          - 固定定位，全屏覆盖
+          - 毛玻璃背景效果
+          - 默认隐藏，通过添加open类显示
+        */
         .mobile-nav {
             display: none;
             position: fixed;
@@ -67,11 +148,13 @@
             justify-content: center;
             padding: 2rem;
         }
-        
+
+        /* 移动端导航菜单打开状态 */
         .mobile-nav.open {
             display: flex;
         }
-        
+
+        /* 移动端导航链接样式 */
         .mobile-nav a {
             display: block;
             width: 100%;
@@ -84,12 +167,17 @@
             border-radius: 9999px;
             transition: all 0.3s ease;
         }
-        
+
+        /* 移动端激活状态导航链接 */
         .mobile-nav a.active-tab {
             background-color: rgba(59, 130, 246, 0.1);
         }
-        
-        /* 触摸目标优化 */
+
+        /* 
+          触摸目标优化
+          - 确保按钮足够大以便触摸（Apple HIG 推荐 44px）
+          - 提高移动端可访问性
+        */
         .touch-target {
             min-height: 44px;
             min-width: 44px;
@@ -97,182 +185,621 @@
             align-items: center;
             justify-content: center;
         }
-        
-        /* 移动端字体响应式优化 */
-        @media (max-width: 640px) {
-            .responsive-text {
-                font-size: 1.125rem;
-                line-height: 1.6;
-            }
-            
-            /* 移动端内容区域内边距优化 */
-            .mobile-padding {
-                padding: 1.5rem;
-            }
-            
-            /* 移动端标题大小优化 */
-            .mobile-heading {
-                font-size: 2.25rem;
-            }
-            
-            /* 移动端副标题大小优化 */
-            .mobile-subheading {
-                font-size: 1.5rem;
-            }
-            
-            /* 移动端项目卡片间距优化 */
-            .project-card {
-                margin-bottom: 1.5rem;
-            }
-            
-            /* 移动端项目卡片内边距优化 */
-            .project-card-padding {
-                padding: 1.5rem;
-            }
-            
-            /* 移动端项目标题大小优化 */
-            .project-title {
-                font-size: 1.25rem;
-            }
-            
-            /* 移动端项目描述间距优化 */
-            .project-description {
-                margin-top: 0.75rem;
-                margin-bottom: 0.75rem;
-            }
-            
-            /* 移动端项目链接间距优化 */
-            .project-link {
-                margin-top: 1rem;
-            }
+
+        /* 
+          项目筛选器样式
+          - 圆角按钮样式
+          - 激活状态使用蓝色背景
+        */
+        .filter-btn {
+            transition: all 0.3s ease;
+            border-radius: 9999px;
         }
         
-        /* 项目卡片图标样式 */
-        .project-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .filter-btn.active {
+            background-color: #3b82f6;
+            color: white;
         }
         
-        /* 项目卡片高度统一 */
+        /* 
+          项目卡片样式优化
+          - 使用flex布局确保卡片高度一致
+          - 相对定位用于状态标签定位
+          - 圆角和溢出隐藏创建现代卡片外观
+        */
         .project-card {
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        
+        /* 
+          卡片顶部装饰条
+          - 使用渐变色彩增强视觉吸引力
+          - 绝对定位在卡片顶部
+        */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
         }
         
         /* 项目卡片内容区域 */
         .project-content {
             flex-grow: 1;
+            padding: 1.5rem;
+        }
+        
+        /* 项目图标样式 */
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* 
+          技术标签样式
+          - 内联块元素，圆角设计
+          - 使用半透明蓝色背景，与主题色协调
+        */
+        .tech-tag {
+            display: inline-block;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+        
+        /* 
+          项目状态标签
+          - 绝对定位在卡片右上角
+          - 圆角设计，使用不同颜色表示不同状态
+        */
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* 已完成状态样式 - 绿色主题 */
+        .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        /* 进行中状态样式 - 橙色主题 */
+        .status-in-progress {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        /* 
+          项目链接样式
+          - 使用flex布局对齐图标和文本
+          - 悬停时轻微右移，增强交互感
+        */
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            transform: translateX(5px);
+        }
+        
+        /* 
+          项目详情模态框
+          - 固定定位，全屏覆盖
+          - 半透明黑色背景
+          - 默认隐藏，通过添加open类显示
+        */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .project-modal.open {
+            display: flex;
+        }
+        
+        /* 模态框内容区域 */
+        .modal-content {
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 16px;
+        }
+        
+        /* 
+          学习进度条样式
+          - 使用两层div实现进度条效果
+          - 外层为背景，内层为进度填充
+        */
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        /* 
+          已完成项目特殊样式
+          - 使用绿色左边框突出显示已完成项目
+        */
+        .completed-project {
+            border-left: 4px solid #10b981;
+        }
+        
+        /* 
+          淡入动画效果
+          - 用于项目卡片加载和筛选时的过渡效果
+        */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* 
+          移动端响应式优化
+          - 针对小屏幕设备的样式调整
+        */
+        @media (max-width: 640px) {
+            /* 响应式文本基础设置 */
+            .responsive-text {
+                font-size: 1.125rem;
+                line-height: 1.6;
+            }
+
+            /* 移动端内容区域内边距优化 */
+            .mobile-padding {
+                padding: 1.5rem;
+            }
+
+            /* 移动端主标题大小优化 */
+            .mobile-heading {
+                font-size: 2.25rem;
+            }
+
+            /* 移动端副标题大小优化 */
+            .mobile-subheading {
+                font-size: 1.5rem;
+            }
+
+            /* 移动端项目卡片间距优化 */
+            .project-card {
+                margin-bottom: 1.5rem;
+            }
+
+            /* 移动端项目卡片内边距优化 */
+            .project-content {
+                padding: 1.25rem;
+            }
+
+            /* 移动端项目标题大小优化 */
+            .project-title {
+                font-size: 1.25rem;
+            }
+
+            /* 移动端项目描述间距优化 */
+            .project-description {
+                margin-top: 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            /* 移动端项目链接间距优化 */
+            .project-link {
+                margin-top: 1rem;
+            }
+            
+            /* 筛选器容器水平滚动优化 */
+            .filter-container {
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+            
+            /* 筛选按钮布局优化 */
+            .filter-buttons {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+            }
         }
     </style>
 </head>
-<body class="text-gray-800 min-h-screen">
 
-    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
+<body class="text-gray-800 min-h-screen">
+    <!-- 
+      导航栏
+      - 使用毛玻璃效果，固定在顶部
+      - 带阴影和底部边框增强视觉分离
+    -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
+                <!-- 网站标题/Logo -->
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+                
+                <!-- 
+                  移动端导航切换按钮
+                  - 仅在移动端显示
+                  - 汉堡菜单按钮，带有可访问性属性
+                -->
                 <div class="flex items-center sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
-                            class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
+                
+                <!-- 
+                  桌面端导航菜单
+                  - 在移动端隐藏，在桌面端显示
+                  - 使用圆角标签样式
+                -->
                 <nav class="hidden sm:flex space-x-4">
-                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
-                    <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
-                    <a href="projects.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">项目经验</a>
-                    <a href="contact.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                    <a href="../index.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
+                    <a href="skills.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                    <a href="projects.html"
+                        class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">项目经验</a>
+                    <a href="contact.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- 移动端专用导航菜单 -->
+    <!-- 
+      移动端专用导航菜单
+      - 全屏覆盖式导航，带模糊背景
+      - 默认隐藏，通过JavaScript控制显示
+    -->
     <div id="mobile-nav" class="mobile-nav">
         <a href="../index.html">关于我</a>
         <a href="skills.html">核心技能</a>
-        <a href="projects.html" class="active-tab">项目经验</a>
+        <a href="projects.html" class="active-tab">学习项目</a>
         <a href="contact.html">联系我</a>
         <!-- 关闭按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- 关闭图标 SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
     </div>
 
-    <!-- 修改：添加了移动端内边距优化类 -->
+    <!-- 
+      主内容区域
+      - 使用max-width限制最大宽度，确保在大屏幕上不会过宽
+      - 响应式内边距，在不同设备上提供合适的间距
+    -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
-
-        <!-- 页面容器 -->
+        <!-- 页面内容容器，使用毛玻璃效果 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
+                <!-- 页面标题和描述区域 -->
                 <div class="max-w-4xl mx-auto text-center">
-                    <!-- 修改：添加了移动端标题优化类 -->
-                    <h3 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-gray-900 mobile-heading">💻 个人项目精选</h3>
-                    <!-- 修改：添加了响应式文本类 -->
+                    <!-- 页面主标题 -->
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-gray-900 mobile-heading">🚀 我的学习项目</h3>
+                    <!-- 页面描述文本 -->
                     <p class="responsive-text text-gray-600 mb-8 sm:mb-10">
-                        以下是我在学习过程中独立完成或参与的实践项目，通过它们我将理论知识转化为了实际的开发能力。
+                        以下是我已完成和正在进行的项目，记录了我的学习历程和技术成长。
                     </p>
+                    
+                    <!-- 
+                      项目筛选器
+                      - 允许用户按项目状态筛选项目
+                      - 使用按钮组实现筛选功能
+                    -->
+                    <div class="mb-10">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">按项目状态筛选</h4>
+                        <div class="filter-container">
+                            <div class="filter-buttons flex flex-wrap justify-center gap-2">
+                                <button class="filter-btn active px-4 py-2 bg-blue-500 text-white" data-filter="all">全部</button>
+                                <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700" data-filter="completed">已完成</button>
+                                <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700" data-filter="in-progress">进行中</button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="space-y-6 text-left max-w-2xl mx-auto">
-                        
-                        <!-- 项目 1 - 修改：添加了移动端优化类 -->
-                        <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-indigo-400 rounded-lg shadow-sm transition duration-200">
-                            <div class="project-icon text-indigo-500 text-center">✅</div>
+                    <!-- 
+                      项目列表容器
+                      - 使用CSS Grid布局，响应式列数
+                      - 在小屏幕上单列，中等屏幕双列，大屏幕三列
+                    -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                        <!-- 
+                          项目 1 - 个人网站搭建
+                          - 已完成项目，使用completed-project类添加特殊样式
+                          - 包含项目状态、图标、标题、技术标签、描述、进度条和操作链接
+                        -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in completed-project" data-status="completed">
+                            <div class="project-status status-completed">已完成</div>
                             <div class="project-content">
-                                <h4 class="project-title font-semibold text-indigo-700 mb-2">简约待办事项应用 (React + LocalStorage)</h4>
-                                <p class="text-sm text-gray-500">主要技术栈: React, Hooks, Tailwind CSS</p>
+                                <div class="project-icon text-indigo-500">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-indigo-700 mb-2">个人网站搭建</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">HTML/CSS</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">响应式设计</span>
+                                    <span class="tech-tag">Tailwind CSS</span>
+                                </div>
                                 <p class="text-gray-700 project-description responsive-text">
-                                    实现了任务的增删改查，利用 React State 和 LocalStorage 实现了数据的持久化存储，重点练习了组件间通信和状态管理。
+                                    已成功构建并部署个人作品集网站到GitHub Pages，展示了我的学习成果和项目经验。
                                 </p>
-                                <a href="https://github.com/zhangxiaoming-dev/todo-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>完成进度</span>
+                                        <span>100%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 项目操作链接 -->
+                                <div class="mt-4 flex gap-3">
+                                    <a href="https://github.com/zhangxiaoming-dev/personal-website" target="_blank"
+                                        class="project-link text-blue-500 hover:text-blue-600 font-medium text-sm touch-target">
+                                        <i class="fab fa-github"></i> 源码
+                                    </a>
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="1">
+                                        <i class="fas fa-info-circle"></i> 项目详情
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- 项目 2 - 修改：添加了移动端优化类 -->
-                        <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-teal-400 rounded-lg shadow-sm transition duration-200">
-                            <div class="project-icon text-teal-500 text-center">🌐</div>
+                        <!-- 项目 2 - 微信小程序开发 -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in" data-status="in-progress">
+                            <div class="project-status status-in-progress">进行中</div>
                             <div class="project-content">
-                                <h4 class="project-title font-semibold text-teal-700 mb-2">响应式公司官网原型 (HTML/CSS)</h4>
-                                <p class="text-sm text-gray-500">主要技术栈: HTML5, CSS Grid/Flexbox, 纯 JavaScript</p>
+                                <div class="project-icon text-teal-500">
+                                    <i class="fab fa-weixin"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-teal-700 mb-2">微信小程序开发</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">微信小程序</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">WXML/WXSS</span>
+                                    <span class="tech-tag">云开发</span>
+                                </div>
                                 <p class="text-gray-700 project-description responsive-text">
-                                    一个完全响应式的多页面网站原型，展示了我对 Mobile-First 设计原则和现代 CSS 布局的掌握。
+                                    正在学习微信小程序开发，已了解基础概念和框架，计划开发一个实用的个人工具类小程序。
                                 </p>
-                                <a href="https://github.com/zhangxiaoming-dev/responsive-website" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>学习进度</span>
+                                        <span>25%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 25%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex gap-3">
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="2">
+                                        <i class="fas fa-info-circle"></i> 学习计划
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- 项目 3 - 修改：添加了移动端优化类 -->
-                        <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-purple-400 rounded-lg shadow-sm transition duration-200">
-                            <div class="project-icon text-purple-500 text-center">🌤️</div>
+
+                        <!-- 项目 3 - 安卓App开发 -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in" data-status="in-progress">
+                            <div class="project-status status-in-progress">进行中</div>
                             <div class="project-content">
-                                <h4 class="project-title font-semibold text-purple-700 mb-2">天气查询应用 (API 集成)</h4>
-                                <p class="text-sm text-gray-500">主要技术栈: JavaScript, Fetch API, 响应式设计</p>
+                                <div class="project-icon text-purple-500">
+                                    <i class="fab fa-android"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-purple-700 mb-2">安卓App开发</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">Android</span>
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">Kotlin</span>
+                                    <span class="tech-tag">Android Studio</span>
+                                </div>
                                 <p class="text-gray-700 project-description responsive-text">
-                                    集成了天气 API，实现根据用户位置或输入查询天气信息的功能，练习了异步数据获取和错误处理。
+                                    正在学习Android应用开发，已了解部分知识，目标是开发一个完整的个人管理类应用。
                                 </p>
-                                <a href="https://github.com/zhangxiaoming-dev/weather-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>学习进度</span>
+                                        <span>20%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex gap-3">
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="3">
+                                        <i class="fas fa-info-circle"></i> 学习计划
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
-                        <!-- 项目 4 - 修改：添加了移动端优化类 -->
-                        <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-yellow-400 rounded-lg shadow-sm transition duration-200">
-                            <div class="project-icon text-yellow-500 text-center">🎨</div>
+
+                        <!-- 项目 4 - 单片机学习 -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in" data-status="in-progress">
+                            <div class="project-status status-in-progress">进行中</div>
                             <div class="project-content">
-                                <h4 class="project-title font-semibold text-yellow-700 mb-2">个人作品集网站 (Vue.js)</h4>
-                                <p class="text-sm text-gray-500">主要技术栈: Vue.js, Vue Router, CSS 动画</p>
+                                <div class="project-icon text-yellow-500">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-yellow-700 mb-2">单片机学习</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">Arduino</span>
+                                    <span class="tech-tag">C/C++</span>
+                                    <span class="tech-tag">嵌入式系统</span>
+                                    <span class="tech-tag">电子电路</span>
+                                </div>
                                 <p class="text-gray-700 project-description responsive-text">
-                                    使用 Vue.js 框架构建的个人作品集网站，展示了组件化开发和前端路由的应用。
+                                    正在学习单片机原理和编程，已了解部分知识，计划制作一个智能家居控制原型。
                                 </p>
-                                <a href="https://github.com/zhangxiaoming-dev/portfolio-vue" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>学习进度</span>
+                                        <span>15%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 15%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex gap-3">
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="4">
+                                        <i class="fas fa-info-circle"></i> 学习计划
+                                    </button>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- 项目 5 - Java学习 -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in" data-status="in-progress">
+                            <div class="project-status status-in-progress">进行中</div>
+                            <div class="project-content">
+                                <div class="project-icon text-red-500">
+                                    <i class="fab fa-java"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-red-700 mb-2">Java编程学习</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">Java</span>
+                                    <span class="tech-tag">面向对象</span>
+                                    <span class="tech-tag">数据结构</span>
+                                    <span class="tech-tag">算法</span>
+                                </div>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    正在系统学习Java编程语言，已掌握基础语法和面向对象概念，正在深入学习数据结构和算法。
+                                </p>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>学习进度</span>
+                                        <span>50%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex gap-3">
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="5">
+                                        <i class="fas fa-info-circle"></i> 学习计划
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 项目 6 - JUnit单元测试学习 -->
+                        <div class="project-card card-hover-effect frosted-glass fade-in" data-status="in-progress">
+                            <div class="project-status status-in-progress">进行中</div>
+                            <div class="project-content">
+                                <div class="project-icon text-green-500">
+                                    <i class="fas fa-vial"></i>
+                                </div>
+                                <h4 class="project-title font-semibold text-green-700 mb-2">JUnit单元测试学习</h4>
+                                <div class="mb-3">
+                                    <span class="tech-tag">JUnit</span>
+                                    <span class="tech-tag">单元测试</span>
+                                    <span class="tech-tag">测试驱动开发</span>
+                                    <span class="tech-tag">Mockito</span>
+                                </div>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    正在学习JUnit单元测试框架，已掌握基础用法，正在实践测试驱动开发方法。
+                                </p>
+                                
+                                <!-- 学习进度条 -->
+                                <div class="mt-4">
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>学习进度</span>
+                                        <span>40%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex gap-3">
+                                    <button class="project-link text-purple-500 hover:text-purple-600 font-medium text-sm touch-target view-details" data-project="6">
+                                        <i class="fas fa-info-circle"></i> 学习计划
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 
+                      学习计划总结
+                      - 展示整体学习路径和规划
+                      - 使用列表显示各阶段学习状态
+                    -->
+                    <div class="mt-12 max-w-3xl mx-auto">
+                        <h4 class="text-xl font-semibold mb-4 text-center text-gray-800">📚 学习路径规划</h4>
+                        <div class="frosted-glass p-6 rounded-xl">
+                            <p class="text-gray-700 mb-4">
+                                我当前的学习重点是全栈开发能力构建，从前端到后端再到移动端和物联网领域，形成完整的技术知识体系。
+                            </p>
+                            <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                                <li>✅ 第一阶段：掌握前端开发基础 (HTML/CSS/JavaScript) - <strong>已完成</strong></li>
+                                <li>🔄 第二阶段：学习后端开发基础 (Java编程和单元测试) - <strong>进行中</strong></li>
+                                <li>🔄 第三阶段：学习移动应用开发 (微信小程序 + Android) - <strong>进行中</strong></li>
+                                <li>🔄 第四阶段：探索物联网和嵌入式系统 (单片机) - <strong>进行中</strong></li>
+                                <li>最终目标：构建跨平台的全栈开发能力</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -280,43 +807,372 @@
         </div>
     </main>
 
-    <!-- 页脚 -->
+    <!-- 
+      项目详情模态框
+      - 用于显示项目的详细信息
+      - 通过JavaScript动态填充内容
+    -->
+    <div id="project-modal" class="project-modal">
+        <div class="modal-content frosted-glass p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-title" class="text-2xl font-bold text-gray-800">项目详情</h3>
+                <button id="close-modal" class="touch-target p-2 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="space-y-4">
+                <!-- 模态框内容将通过JavaScript动态填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+      页脚
+      - 显示版权信息和年份
+      - 使用JavaScript动态更新年份
+    -->
     <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
             <script>
+                // 自动更新版权年份
                 document.getElementById('year').textContent = new Date().getFullYear();
             </script>
         </div>
     </footer>
 
-    <!-- 移动端导航的JavaScript -->
+    <!-- 
+      项目数据
+      - 存储所有项目的详细信息
+      - 使用JavaScript对象结构，便于动态访问
+    -->
     <script>
+        const projectData = {
+            1: {
+                title: "个人网站搭建",
+                description: "我已成功构建并部署个人作品集网站到GitHub Pages，展示我的学习成果和项目经验。这个项目帮助我掌握了现代前端开发技术和最佳实践。",
+                achievements: [
+                    "实现了响应式设计，确保在各种设备上良好显示",
+                    "使用HTML5语义化标签和现代CSS布局技术",
+                    "通过JavaScript实现了交互功能",
+                    "优化了网站性能和加载速度",
+                    "成功部署到GitHub Pages"
+                ],
+                technologies: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Git", "GitHub Pages"],
+                github: "https://github.com/zhangxiaoming-dev/personal-website",
+                demo: "#",
+                status: "已完成",
+                progress: 100
+            },
+            2: {
+                title: "微信小程序开发",
+                description: "我正在学习微信小程序开发，已了解基础概念和框架，计划开发一个实用的个人工具类小程序。",
+                learningGoals: [
+                    "理解微信小程序的基本架构和开发流程",
+                    "掌握WXML和WXSS的使用方法",
+                    "学习小程序组件的使用和自定义组件开发",
+                    "掌握小程序API的调用和数据管理",
+                    "了解小程序云开发和服务端集成"
+                ],
+                currentProgress: "已了解小程序基础概念和框架，正在实践页面布局和基础组件使用。",
+                nextSteps: [
+                    "设计并实现个人工具类小程序的原型",
+                    "学习小程序数据绑定和事件处理",
+                    "掌握小程序API调用和云开发",
+                    "完成小程序的测试和发布流程"
+                ],
+                technologies: ["微信小程序", "JavaScript", "WXML/WXSS", "小程序云开发"],
+                status: "进行中",
+                progress: 25
+            },
+            3: {
+                title: "安卓App开发",
+                description: "我正在学习Android应用开发，已了解部分知识，目标是开发一个完整的个人管理类应用。",
+                learningGoals: [
+                    "掌握Android应用的基本架构和生命周期",
+                    "学习使用Android Studio和开发工具",
+                    "理解Activity、Fragment和布局设计",
+                    "掌握数据存储和网络请求",
+                    "学习Material Design设计原则"
+                ],
+                currentProgress: "已了解Android开发环境和基础UI组件，正在实践布局设计和简单交互。",
+                nextSteps: [
+                    "设计个人管理应用的界面和功能",
+                    "学习Android数据存储(SQLite/SharedPreferences)",
+                    "掌握网络请求和API集成",
+                    "了解应用发布流程和商店上架"
+                ],
+                technologies: ["Android", "Java", "Kotlin", "Android Studio", "Material Design"],
+                status: "进行中",
+                progress: 20
+            },
+            4: {
+                title: "单片机学习",
+                description: "我正在学习单片机原理和编程，已了解部分知识，计划制作一个智能家居控制原型。",
+                learningGoals: [
+                    "理解单片机的基本原理和架构",
+                    "掌握C/C++在嵌入式开发中的应用",
+                    "学习传感器数据采集和处理",
+                    "了解通信协议(I2C, SPI, UART)",
+                    "掌握简单的电路设计和焊接技能"
+                ],
+                currentProgress: "已了解单片机基础概念和Arduino编程，正在实践简单的传感器控制。",
+                nextSteps: [
+                    "设计智能家居控制系统的原型",
+                    "学习多种传感器的集成和使用",
+                    "掌握无线通信模块的应用",
+                    "完成一个完整的物联网项目"
+                ],
+                technologies: ["Arduino", "C/C++", "嵌入式系统", "电子电路", "传感器"],
+                status: "进行中",
+                progress: 15
+            },
+            5: {
+                title: "Java编程学习",
+                description: "我正在系统学习Java编程语言，已掌握基础语法和面向对象概念，正在深入学习数据结构和算法。",
+                learningGoals: [
+                    "掌握Java语言基础和面向对象编程",
+                    "理解常用数据结构和算法",
+                    "学习Java集合框架和IO操作",
+                    "掌握异常处理和多线程编程",
+                    "了解Java网络编程和数据库连接"
+                ],
+                currentProgress: "已掌握Java基础语法和面向对象概念，正在实践数据结构和算法实现。",
+                nextSteps: [
+                    "深入学习Java集合框架和泛型",
+                    "掌握多线程编程和并发控制",
+                    "学习Java网络编程和Socket通信",
+                    "实践数据库连接和JDBC使用"
+                ],
+                technologies: ["Java", "面向对象", "数据结构", "算法", "集合框架"],
+                status: "进行中",
+                progress: 50
+            },
+            6: {
+                title: "JUnit单元测试学习",
+                description: "我正在学习JUnit单元测试框架，已掌握基础用法，正在实践测试驱动开发方法。",
+                learningGoals: [
+                    "掌握JUnit测试框架的基本使用",
+                    "理解测试驱动开发(TDD)方法论",
+                    "学习Mockito等测试辅助工具",
+                    "掌握测试覆盖率和代码质量分析",
+                    "了解持续集成中的自动化测试"
+                ],
+                currentProgress: "已掌握JUnit基础用法，正在实践单元测试编写和测试驱动开发流程。",
+                nextSteps: [
+                    "深入学习Mockito等模拟框架",
+                    "实践测试驱动开发完整流程",
+                    "掌握测试覆盖率和代码质量工具",
+                    "学习集成测试和系统测试方法"
+                ],
+                technologies: ["JUnit", "单元测试", "测试驱动开发", "Mockito", "代码质量"],
+                status: "进行中",
+                progress: 40
+            }
+        };
+    </script>
+
+    <!-- 
+      JavaScript 交互逻辑
+      - 处理页面加载完成后的各种交互功能
+      - 包括导航菜单、项目筛选、模态框等
+    -->
+    <script>
+        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
+            // 获取移动端导航相关DOM元素
             const navToggle = document.getElementById('nav-toggle');
             const mobileNav = document.getElementById('mobile-nav');
             const closeNav = document.getElementById('close-nav');
-            
-            // 打开移动端导航
+
+            // 打开移动端导航菜单事件
             navToggle.addEventListener('click', () => {
                 mobileNav.classList.add('open');
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
+                // 防止背景内容滚动，提升移动端体验
+                document.body.style.overflow = 'hidden';
             });
-            
-            // 关闭移动端导航
+
+            // 关闭移动端导航菜单事件
             closeNav.addEventListener('click', () => {
                 mobileNav.classList.remove('open');
+                // 恢复背景滚动
                 document.body.style.overflow = '';
             });
-            
-            // 点击导航链接关闭菜单
+
+            // 点击导航链接时关闭菜单
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNav.classList.remove('open');
                     document.body.style.overflow = '';
                 });
             });
+
+            // 项目筛选功能
+            // 获取筛选按钮和项目卡片元素
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            // 为每个筛选按钮添加点击事件
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 更新激活状态 - 移除所有按钮的激活状态
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-blue-500', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    
+                    // 为当前点击的按钮添加激活状态
+                    button.classList.add('active', 'bg-blue-500', 'text-white');
+                    button.classList.remove('bg-gray-200', 'text-gray-700');
+                    
+                    // 筛选项目 - 获取筛选值
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // 遍历所有项目卡片，根据筛选值显示或隐藏
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            // 显示全部项目
+                            card.style.display = 'block';
+                            card.classList.add('fade-in');
+                        } else {
+                            // 根据项目状态筛选
+                            const status = card.getAttribute('data-status');
+                            if (status === filterValue) {
+                                card.style.display = 'block';
+                                card.classList.add('fade-in');
+                            } else {
+                                card.style.display = 'none';
+                                card.classList.remove('fade-in');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // 项目详情模态框功能
+            // 获取模态框相关DOM元素
+            const modal = document.getElementById('project-modal');
+            const closeModal = document.getElementById('close-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const viewDetailsButtons = document.querySelectorAll('.view-details');
+
+            // 为每个"查看详情"按钮添加点击事件
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // 获取项目ID并获取对应项目数据
+                    const projectId = button.getAttribute('data-project');
+                    const project = projectData[projectId];
+                    
+                    // 如果找到项目数据，填充模态框内容
+                    if (project) {
+                        modalTitle.textContent = project.title;
+                        
+                        // 根据项目状态（已完成/进行中）显示不同的内容
+                        if (project.status === '已完成') {
+                            // 已完成项目显示项目成果
+                            modalContent.innerHTML = `
+                                <div class="mb-4">
+                                    <span class="project-status status-completed">${project.status}</span>
+                                    <div class="mt-2">
+                                        <div class="flex justify-between text-sm text-gray-600">
+                                            <span>完成进度</span>
+                                            <span>${project.progress}%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${project.progress}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700">${project.description}</p>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">项目成果</h4>
+                                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                        ${project.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">技术栈</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4 flex gap-4">
+                                    <a href="${project.github}" target="_blank" class="project-link text-blue-500 hover:text-blue-600 font-medium">
+                                        <i class="fab fa-github"></i> 查看源码
+                                    </a>
+                                </div>
+                            `;
+                        } else {
+                            // 进行中项目显示学习计划
+                            modalContent.innerHTML = `
+                                <div class="mb-4">
+                                    <span class="project-status status-in-progress">${project.status}</span>
+                                    <div class="mt-2">
+                                        <div class="flex justify-between text-sm text-gray-600">
+                                            <span>学习进度</span>
+                                            <span>${project.progress}%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: ${project.progress}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-700">${project.description}</p>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">学习目标</h4>
+                                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                        ${project.learningGoals.map(goal => `<li>${goal}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">当前进展</h4>
+                                    <p class="text-gray-700">${project.currentProgress}</p>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">下一步计划</h4>
+                                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                                        ${project.nextSteps.map(step => `<li>${step}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-2 text-gray-800">技术栈</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        // 显示模态框并禁用背景滚动
+                        modal.classList.add('open');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // 关闭模态框事件
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+
+            // 点击模态框外部关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('open');
+                    document.body.style.overflow = '';
+                }
+            });
         });
     </script>
 </body>
+
 </html>

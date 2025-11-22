@@ -1,42 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
+    <!-- 文档基础设置 -->
     <meta charset="UTF-8">
+    <!-- 响应式视口设置，确保在不同设备上正常显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>核心技能 | 潇</title>
+    
+    <!-- SEO 相关元数据 -->
     <meta name="description" content="潇 的核心技能：Web 基础、前端框架与开发流程。欢迎查看项目与联系。">
     <meta name="robots" content="index, follow">
+    
+    <!-- 社交媒体分享元数据 -->
     <meta property="og:title" content="核心技能 | 潇">
     <meta property="og:description" content="潇 的核心技能：Web 基础、前端框架与开发流程。">
-    <meta property="og:image" content="/images/bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- 网站图标设置 -->
     <link rel="icon" href="/images/logo.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo.ico">
+    
+    <!-- 主题颜色和PWA配置 -->
     <meta name="theme-color" content="#e7eafc">
     <link rel="manifest" href="/manifest.json">
+    
+    <!-- 引入 Tailwind CSS 框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 自定义样式 -->
     <style>
+        /* 基础字体设置 */
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            /* 渐变背景 */
             background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
         }
 
+        /* 毛玻璃效果样式 */
         .frosted-glass {
             background-color: rgba(255, 255, 255, 0.75);
+            /* 背景模糊效果 */
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
 
+        /* 卡片悬停动画效果 */
         .card-hover-effect {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .card-hover-effect:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-        
+
+        /* 激活状态的标签页样式 */
         .active-tab {
             color: #3b82f6 !important;
             background-color: rgba(255, 255, 255, 0.95) !important;
@@ -44,11 +65,12 @@
             border-radius: 9999px !important;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
         }
-        
+
+        /* 标签页链接过渡效果 */
         .tab-link {
             transition: all 0.3s ease;
         }
-        
+
         /* 移动端导航菜单样式 */
         .mobile-nav {
             display: none;
@@ -66,11 +88,13 @@
             justify-content: center;
             padding: 2rem;
         }
-        
+
+        /* 移动端导航菜单打开状态 */
         .mobile-nav.open {
             display: flex;
         }
-        
+
+        /* 移动端导航链接样式 */
         .mobile-nav a {
             display: block;
             width: 100%;
@@ -83,12 +107,13 @@
             border-radius: 9999px;
             transition: all 0.3s ease;
         }
-        
+
+        /* 移动端激活状态导航链接 */
         .mobile-nav a.active-tab {
             background-color: rgba(59, 130, 246, 0.1);
         }
-        
-        /* 触摸目标优化 */
+
+        /* 触摸目标优化 - 确保按钮足够大以便触摸 */
         .touch-target {
             min-height: 44px;
             min-width: 44px;
@@ -96,97 +121,106 @@
             align-items: center;
             justify-content: center;
         }
-        
-        /* 移动端字体响应式优化 */
+
+        /* 移动端响应式文本优化 */
         @media (max-width: 640px) {
             .responsive-text {
                 font-size: 1.125rem;
                 line-height: 1.6;
             }
-            
+
             /* 移动端内容区域内边距优化 */
             .mobile-padding {
                 padding: 1.5rem;
             }
-            
+
             /* 移动端标题大小优化 */
             .mobile-heading {
                 font-size: 2.5rem;
             }
-            
+
             /* 移动端副标题大小优化 */
             .mobile-subheading {
                 font-size: 1.5rem;
             }
-            
+
             /* 移动端技能卡片间距优化 */
             .skill-card {
                 margin-bottom: 1rem;
             }
-            
+
             /* 移动端技能卡片内边距优化 */
             .skill-card-padding {
                 padding: 1.5rem;
             }
-            
+
             /* 移动端列表项间距优化 */
             .skill-list li {
                 margin-bottom: 0.5rem;
             }
         }
-        
+
         /* 移动端按钮间距优化 */
         .mobile-button {
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
-        
+
         /* 技能图标大小优化 */
         .skill-icon {
             font-size: 2.5rem;
         }
-        
-        /* 技能卡片高度统一 */
+
+        /* 技能卡片高度统一和布局 */
         .skill-card {
             height: 100%;
             display: flex;
             flex-direction: column;
         }
-        
-        /* 技能卡片内容区域 */
+
+        /* 技能卡片内容区域弹性布局 */
         .skill-content {
             flex-grow: 1;
         }
     </style>
 </head>
-<body class="text-gray-800 min-h-screen">
 
-    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
+<body class="text-gray-800 min-h-screen">
+    <!-- 导航栏 -->
+    <!-- 使用毛玻璃效果，固定在顶部，带阴影 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
+                <!-- 网站标题 -->
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+                
+                <!-- 移动端导航切换按钮 - 仅在移动端显示 -->
                 <div class="flex items-center sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
-                            class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
+                
+                <!-- 桌面端导航菜单 - 在移动端隐藏 -->
                 <nav class="hidden sm:flex space-x-4">
-                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
-                    <a href="skills.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">核心技能</a>
-                    <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
-                    <a href="contact.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                    <a href="../index.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
+                    <a href="skills.html"
+                        class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">核心技能</a>
+                    <a href="projects.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                    <a href="contact.html"
+                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
     <!-- 移动端专用导航菜单 -->
+    <!-- 全屏覆盖式导航，带模糊背景 -->
     <div id="mobile-nav" class="mobile-nav">
         <a href="../index.html">关于我</a>
         <a href="skills.html" class="active-tab">核心技能</a>
@@ -194,29 +228,35 @@
         <a href="contact.html">联系我</a>
         <!-- 关闭按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- 关闭图标 -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
     </div>
 
-    <!-- 修改：添加了移动端内边距优化类 -->
+    <!-- 主内容区域 -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
-
-        <!-- 页面容器 -->
+        <!-- 页面内容容器，使用毛玻璃效果 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
-                <!-- 修改：添加了移动端标题优化类 -->
-                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900 mobile-subheading">核心技能与特质</h3>
+                <!-- 页面标题 -->
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900 mobile-subheading">
+                    核心技能与特质</h3>
 
-                <!-- 修改：调整了网格布局，移动端改为单列 -->
+                <!-- 技能卡片网格布局 -->
+                <!-- 移动端单列，桌面端多列 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     
-                    <!-- 修改：添加了移动端技能卡片优化类 -->
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                    <!-- Web 基础技能卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <!-- 技能图标 -->
                         <div class="skill-icon text-blue-500 mb-3 text-center">💻</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">Web 基础</h4>
+                            <!-- 技能列表 -->
                             <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
                                 <li>HTML5 (语义化)</li>
                                 <li>CSS3 (Flexbox, Grid)</li>
@@ -225,7 +265,9 @@
                         </div>
                     </div>
 
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                    <!-- 快速学习能力卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-green-500 mb-3 text-center">🚀</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">快速学习能力</h4>
@@ -235,7 +277,9 @@
                         </div>
                     </div>
 
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                    <!-- 问题解决能力卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-yellow-500 mb-3 text-center">💡</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">问题解决者</h4>
@@ -245,7 +289,9 @@
                         </div>
                     </div>
 
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                    <!-- 工具与实践卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-red-500 mb-3 text-center">🛠️</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">工具与实践</h4>
@@ -256,8 +302,10 @@
                             </ul>
                         </div>
                     </div>
-                    
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+
+                    <!-- 前端框架卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-purple-500 mb-3 text-center">📱</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">前端框架</h4>
@@ -268,8 +316,10 @@
                             </ul>
                         </div>
                     </div>
-                    
-                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+
+                    <!-- 开发流程卡片 -->
+                    <div
+                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-indigo-500 mb-3 text-center">🔧</div>
                         <div class="skill-content">
                             <h4 class="text-xl font-semibold mb-2 text-center">开发流程</h4>
@@ -288,33 +338,39 @@
     <!-- 页脚 -->
     <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 动态年份显示 -->
             <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
             <script>
+                // 自动更新版权年份
                 document.getElementById('year').textContent = new Date().getFullYear();
             </script>
         </div>
     </footer>
 
-    <!-- 移动端导航的JavaScript -->
+    <!-- 移动端导航交互逻辑 -->
     <script>
+        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
+            // 获取DOM元素
             const navToggle = document.getElementById('nav-toggle');
             const mobileNav = document.getElementById('mobile-nav');
             const closeNav = document.getElementById('close-nav');
-            
-            // 打开移动端导航
+
+            // 打开移动端导航菜单事件
             navToggle.addEventListener('click', () => {
                 mobileNav.classList.add('open');
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
+                // 防止背景内容滚动
+                document.body.style.overflow = 'hidden';
             });
-            
-            // 关闭移动端导航
+
+            // 关闭移动端导航菜单事件
             closeNav.addEventListener('click', () => {
                 mobileNav.classList.remove('open');
+                // 恢复背景滚动
                 document.body.style.overflow = '';
             });
-            
-            // 点击导航链接关闭菜单
+
+            // 点击导航链接时关闭菜单
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNav.classList.remove('open');
@@ -324,4 +380,5 @@
         });
     </script>
 </body>
+
 </html>
