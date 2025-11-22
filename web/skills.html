@@ -48,23 +48,125 @@
         .tab-link {
             transition: all 0.3s ease;
         }
+        
+        /* 移动端导航菜单样式 */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 50;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .mobile-nav.open {
+            display: flex;
+        }
+        
+        .mobile-nav a {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a.active-tab {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 触摸目标优化 */
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 移动端字体响应式优化 */
+        @media (max-width: 640px) {
+            .responsive-text {
+                font-size: 1.125rem;
+                line-height: 1.6;
+            }
+            
+            /* 移动端内容区域内边距优化 */
+            .mobile-padding {
+                padding: 1.5rem;
+            }
+            
+            /* 移动端标题大小优化 */
+            .mobile-heading {
+                font-size: 2.5rem;
+            }
+            
+            /* 移动端副标题大小优化 */
+            .mobile-subheading {
+                font-size: 1.5rem;
+            }
+            
+            /* 移动端技能卡片间距优化 */
+            .skill-card {
+                margin-bottom: 1rem;
+            }
+            
+            /* 移动端技能卡片内边距优化 */
+            .skill-card-padding {
+                padding: 1.5rem;
+            }
+            
+            /* 移动端列表项间距优化 */
+            .skill-list li {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        /* 移动端按钮间距优化 */
+        .mobile-button {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* 技能图标大小优化 */
+        .skill-icon {
+            font-size: 2.5rem;
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen">
 
-    <!-- 导航栏 -->
+    <!-- 导航栏 - 修改：移动端按钮靠右 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-row items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <div class="sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="site-nav" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">☰</button>
+                <!-- 修改：移动端按钮靠右 -->
+                <div class="flex items-center">
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
+                            class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
+                        ☰
+                    </button>
                 </div>
-                <nav id="site-nav" class="hidden sm:flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-3 sm:mt-0">
-                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
-                    <a href="skills.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                <!-- 修改：桌面端导航 -->
+                <nav class="hidden sm:flex space-x-4">
+                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
+                    <a href="skills.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">核心技能</a>
                     <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
                     <a href="contact.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
                 </nav>
@@ -72,65 +174,83 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
+    <!-- 移动端专用导航菜单 -->
+    <div id="mobile-nav" class="mobile-nav">
+        <a href="../index.html">关于我</a>
+        <a href="skills.html" class="active-tab">核心技能</a>
+        <a href="projects.html">项目经验</a>
+        <a href="contact.html">联系我</a>
+        <!-- 关闭按钮 -->
+        <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- 修改：添加了移动端内边距优化类 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
 
         <!-- 页面容器 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
-                <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">核心技能与特质</h3>
+                <!-- 修改：添加了移动端标题优化类 -->
+                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900 mobile-subheading">核心技能与特质</h3>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 修改：调整了网格布局，移动端改为单列 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-blue-500 mb-3">💻</div>
-                        <h4 class="text-xl font-semibold mb-2">Web 基础</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                    <!-- 修改：添加了移动端技能卡片优化类 -->
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-blue-500 mb-3 text-center">💻</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">Web 基础</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
                             <li>HTML5 (语义化)</li>
                             <li>CSS3 (Flexbox, Grid)</li>
                             <li>JavaScript (ES6+)</li>
                         </ul>
                     </div>
 
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-green-500 mb-3">🚀</div>
-                        <h4 class="text-xl font-semibold mb-2">快速学习能力</h4>
-                        <p class="text-gray-600">
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-green-500 mb-3 text-center">🚀</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">快速学习能力</h4>
+                        <p class="text-gray-600 responsive-text">
                             对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。
                         </p>
                     </div>
 
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-yellow-500 mb-3">💡</div>
-                        <h4 class="text-xl font-semibold mb-2">问题解决者</h4>
-                        <p class="text-gray-600">
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-yellow-500 mb-3 text-center">💡</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">问题解决者</h4>
+                        <p class="text-gray-600 responsive-text">
                             享受分析和解决复杂问题的过程，乐于探索最佳实践方案。
                         </p>
                     </div>
 
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-red-500 mb-3">🛠️</div>
-                        <h4 class="text-xl font-semibold mb-2">工具与实践</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-red-500 mb-3 text-center">🛠️</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">工具与实践</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
                             <li>Git / GitHub</li>
                             <li>响应式设计</li>
                             <li>VS Code / 开发者工具</li>
                         </ul>
                     </div>
                     
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-purple-500 mb-3">📱</div>
-                        <h4 class="text-xl font-semibold mb-2">前端框架</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-purple-500 mb-3 text-center">📱</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">前端框架</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
                             <li>React 基础</li>
                             <li>Vue.js 入门</li>
                             <li>Tailwind CSS</li>
                         </ul>
                     </div>
                     
-                    <div class="card-hover-effect p-6 bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="text-3xl text-indigo-500 mb-3">🔧</div>
-                        <h4 class="text-xl font-semibold mb-2">开发流程</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                    <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
+                        <div class="skill-icon text-indigo-500 mb-3 text-center">🔧</div>
+                        <h4 class="text-xl font-semibold mb-2 text-center">开发流程</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
                             <li>版本控制</li>
                             <li>调试技巧</li>
                             <li>代码规范</li>
@@ -150,20 +270,33 @@
             </script>
         </div>
     </footer>
+
+    <!-- 移动端导航的JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('nav-toggle');
-            const nav = document.getElementById('site-nav');
-            if (btn && nav) {
-                btn.addEventListener('click', () => {
-                    const wasHidden = nav.classList.contains('hidden');
-                    if (wasHidden) nav.classList.remove('hidden'); else nav.classList.add('hidden');
-                    btn.setAttribute('aria-expanded', String(!wasHidden));
+            const navToggle = document.getElementById('nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            const closeNav = document.getElementById('close-nav');
+            
+            // 打开移动端导航
+            navToggle.addEventListener('click', () => {
+                mobileNav.classList.add('open');
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            });
+            
+            // 关闭移动端导航
+            closeNav.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+            
+            // 点击导航链接关闭菜单
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                    document.body.style.overflow = '';
                 });
-                nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-                    if (window.innerWidth < 640) nav.classList.add('hidden');
-                }));
-            }
+            });
         });
     </script>
 </body>

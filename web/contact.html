@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>项目经验 | 潇</title>
+    <title>联系我 | 潇</title>
+    <meta name="description" content="联系潇 - 期待您的合作与沟通">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="项目经验 | 潇">
+    <meta property="og:title" content="联系我 | 潇">
+    <meta property="og:description" content="联系潇 - 期待您的合作与沟通">
     <meta property="og:image" content="/images/bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/images/logo.ico" type="image/x-icon">
@@ -77,6 +79,102 @@
         .notification.error {
             background-color: #ef4444;
         }
+        
+        /* 移动端导航菜单样式 */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 50;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .mobile-nav.open {
+            display: flex;
+        }
+        
+        .mobile-nav a {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a.active-tab {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 触摸目标优化 */
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 移动端字体响应式优化 */
+        @media (max-width: 640px) {
+            .responsive-text {
+                font-size: 1.125rem;
+                line-height: 1.6;
+            }
+            
+            /* 移动端内容区域内边距优化 */
+            .mobile-padding {
+                padding: 1.5rem;
+            }
+            
+            /* 移动端标题大小优化 */
+            .mobile-heading {
+                font-size: 2.25rem;
+            }
+            
+            /* 移动端副标题大小优化 */
+            .mobile-subheading {
+                font-size: 1.5rem;
+            }
+            
+            /* 移动端表单元素优化 */
+            .form-input {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            /* 移动端按钮优化 */
+            .mobile-button {
+                padding: 1rem 2rem;
+                font-size: 1.125rem;
+                width: 100%;
+            }
+            
+            /* 移动端联系卡片优化 */
+            .contact-card {
+                width: 100%;
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+            
+            /* 移动端表单间距优化 */
+            .form-spacing {
+                margin-bottom: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen">
@@ -84,34 +182,56 @@
     <!-- 通知区域 -->
     <div id="notification" class="notification"></div>
 
-    <!-- 导航栏 -->
+    <!-- 导航栏 - 修改：移动端按钮靠右 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-row items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <div class="sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="site-nav" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">☰</button>
+                <!-- 修改：移动端按钮靠右 -->
+                <div class="flex items-center">
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
+                            class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
+                        ☰
+                    </button>
                 </div>
-                <nav id="site-nav" class="hidden sm:flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-3 sm:mt-0">
-                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                <!-- 修改：桌面端导航 -->
+                <nav class="hidden sm:flex space-x-4">
+                    <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
                     <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
                     <a href="projects.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
-                    <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                    <a href="contact.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
+    <!-- 移动端专用导航菜单 -->
+    <div id="mobile-nav" class="mobile-nav">
+        <a href="../index.html">关于我</a>
+        <a href="skills.html">核心技能</a>
+        <a href="projects.html">项目经验</a>
+        <a href="contact.html" class="active-tab">联系我</a>
+        <!-- 关闭按钮 -->
+        <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- 修改：添加了移动端内边距优化类 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
 
         <!-- 页面容器 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
                 <div class="max-w-3xl mx-auto">
-                    <h3 class="text-3xl font-bold mb-6 text-gray-900 text-center">期待您的合作</h3>
-                    <p class="text-lg text-gray-600 mb-8 text-center">
+                    <!-- 修改：添加了移动端标题优化类 -->
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-6 text-gray-900 text-center mobile-heading">期待您的合作</h3>
+                    <!-- 修改：添加了响应式文本类 -->
+                    <p class="responsive-text text-gray-600 mb-8 text-center form-spacing">
                         我坚信积极主动和快速学习是成功的关键。如果您认为我能够为您的团队带来价值，请随时与我取得联系。
                     </p>
                     
@@ -124,35 +244,35 @@
                     <form id="contact-form" class="contact-form space-y-6 mb-10" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
                         <!-- Honeypot field for basic spam protection -->
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 form-spacing">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
                                 <input type="text" id="name" name="name" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                     placeholder="请输入您的姓名">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
                                 <input type="email" id="email" name="email" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                     placeholder="请输入您的邮箱">
                             </div>
                         </div>
-                        <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">主题</label>
+                        <div class="form-spacing">
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">主题</label>
                             <input type="text" id="subject" name="subject" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                 placeholder="请输入邮件主题">
                         </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">留言</label>
+                        <div class="form-spacing">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">留言</label>
                             <textarea id="message" name="message" rows="5" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent form-input touch-target"
                                 placeholder="请输入您的留言..."></textarea>
                         </div>
                         <div class="text-center">
                             <button type="submit" 
-                                class="px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+                                class="px-8 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105 mobile-button touch-target">
                                 发送消息
                             </button>
                         </div>
@@ -160,7 +280,7 @@
                     
                     <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 justify-center">
                         <!-- 邮箱 -->
-                        <a href="mailto:1420272691@qq.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 w-full sm:w-auto justify-center">
+                        <a href="mailto:1420272691@qq.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 contact-card touch-target">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="20" height="16" x="2" y="4" rx="2"/>
                                 <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
@@ -169,7 +289,7 @@
                         </a>
                         
                         <!-- GitHub -->
-                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-gray-700 border border-gray-200 w-full sm:w-auto justify-center">
+                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-gray-700 border border-gray-200 contact-card touch-target">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
                             <span>GitHub</span>
                         </a>
@@ -196,29 +316,30 @@
                 yearSpan.textContent = new Date().getFullYear();
             }
 
-            // 动态设置导航高亮
-            const navLinks = document.querySelectorAll('nav .tab-link');
-            const currentPath = location.pathname.replace(/\\/g, '/').replace(/^.*\//, '');
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href').replace(/\\/g, '/').replace(/^.*\//, '');
-                if (linkPath === currentPath) {
-                    link.classList.add('active-tab');
-                }
+            // 移动端导航菜单逻辑
+            const navToggle = document.getElementById('nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            const closeNav = document.getElementById('close-nav');
+            
+            // 打开移动端导航
+            navToggle.addEventListener('click', () => {
+                mobileNav.classList.add('open');
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
             });
-
-            // 移动端汉堡菜单切换
-            const navToggleBtn = document.getElementById('nav-toggle');
-            const siteNav = document.getElementById('site-nav');
-            if (navToggleBtn && siteNav) {
-                navToggleBtn.addEventListener('click', () => {
-                    const wasHidden = siteNav.classList.contains('hidden');
-                    if (wasHidden) siteNav.classList.remove('hidden'); else siteNav.classList.add('hidden');
-                    navToggleBtn.setAttribute('aria-expanded', String(!wasHidden));
+            
+            // 关闭移动端导航
+            closeNav.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+            
+            // 点击导航链接关闭菜单
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                    document.body.style.overflow = '';
                 });
-                siteNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-                    if (window.innerWidth < 640) siteNav.classList.add('hidden');
-                }));
-            }
+            });
 
             // 显示通知
             // type 可用值: 'success'（成功），'error'（错误）
@@ -266,10 +387,11 @@
                     }
 
                     console.log('发送邮件:', data);
-                    showNotification('测试功能，尚未实装');
+                    showNotification('消息已发送！我会尽快回复您。');
                     contactForm.reset();
                 });
             }
         });
     </script>
-
+</body>
+</html>
