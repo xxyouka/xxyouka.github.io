@@ -3,302 +3,417 @@
 
 <head>
     <!-- 文档基础设置 -->
-    <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8，支持中文显示 -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- 响应式视口设置，确保在不同设备上正常显示 -->
-    <title>潇 | 个人主页</title> <!-- 页面标题，显示在浏览器标签页上 -->
+    <title>潇 | 前端开发者</title>
 
     <!-- SEO优化相关元标签 -->
-    <meta name="description" content="潇 的个人主页 — 学习前端与构建优雅、直观的用户体验。欢迎查看技能、项目并联系我。"> <!-- 页面描述，用于搜索引擎结果展示 -->
-    <meta name="robots" content="index, follow"> <!-- 指示搜索引擎可以索引本页并跟踪链接 -->
+    <meta name="description" content="潇的个人主页 — 专注于前端开发与用户体验设计。查看我的技能、项目并联系我。">
+    <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Social 社交媒体分享优化 -->
-    <meta property="og:type" content="website"> <!-- 定义页面类型为网站 -->
-    <meta property="og:title" content="潇 | 个人主页"> <!-- 社交媒体分享时的标题 -->
-    <meta property="og:description" content="学习前端、构建优雅用户体验 — 这是我的个人主页，欢迎联系。"> <!-- 社交媒体分享时的描述 -->
-    <meta name="twitter:card" content="summary_large_image"> <!-- Twitter卡片类型设置 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="潇 | 前端开发者">
+    <meta property="og:description" content="专注于前端开发与用户体验设计 — 这是我的个人主页，欢迎联系。">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- 网站图标和主题色 -->
-    <link rel="icon" href="/images/logo.ico" type="image/x-icon"> <!-- 网站favicon图标 -->
-    <link rel="apple-touch-icon" href="/images/logo.ico"> <!-- iOS设备上使用的图标 -->
-    <meta name="theme-color" content="#e7eafc"> <!-- 浏览器地址栏主题色 -->
-    <link rel="manifest" href="/manifest.json"> <!-- PWA应用清单文件 -->
+    <link rel="icon" href="/images/logo.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/images/logo.ico">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- 引入Tailwind CSS框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- 自定义CSS样式 -->
     <style>
-        /* 基础字体设置 */
+        :root {
+            --primary-color: #6366f1;
+            --primary-light: #818cf8;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --light-bg: #f8fafc;
+        }
+        
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            /* 渐变背景：从左上到右下的浅蓝到浅紫色渐变 */
-            background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #f0f7ff 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
-        /* 毛玻璃效果样式类 */
         .frosted-glass {
-            background-color: rgba(255, 255, 255, 0.75);
-            /* 半透明白色背景 */
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px) saturate(180%);
-            /* 背景模糊和饱和度增强效果 */
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            /* Safari浏览器兼容 */
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            /* 半透明边框 */
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-            /* 柔和阴影 */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
-        /* 卡片悬停效果 */
         .card-hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* 平滑过渡动画 */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .card-hover-effect:hover {
-            transform: translateY(-3px);
-            /* 悬停时向上轻微移动 */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            /* 悬停时阴影加深 */
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
-        /* 激活状态的标签页样式 */
         .active-tab {
-            color: #3b82f6 !important;
-            /* 蓝色文字 */
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            /* 近乎白色的背景 */
-            border-bottom: none !important;
-            /* 移除底部边框 */
+            color: var(--primary-color) !important;
+            background: rgba(99, 102, 241, 0.1) !important;
             border-radius: 9999px !important;
-            /* 圆形边框 */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-            /* 轻微阴影 */
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15) !important;
         }
 
-        /* 标签页链接过渡效果 */
         .tab-link {
             transition: all 0.3s ease;
-            /* 所有属性平滑过渡 */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .tab-link:hover::after {
+            transform: scaleX(1);
         }
 
-        /* 移动端导航菜单样式 */
         .mobile-nav {
             display: none;
-            /* 默认隐藏 */
             position: fixed;
-            /* 固定定位 */
             top: 0;
             left: 0;
             width: 100%;
-            /* 全屏宽度 */
             height: 100%;
-            /* 全屏高度 */
-            background-color: rgba(255, 255, 255, 0.95);
-            /* 半透明白色背景 */
-            backdrop-filter: blur(10px);
-            /* 背景模糊效果 */
-            -webkit-backdrop-filter: blur(10px);
-            /* Safari兼容 */
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 50;
-            /* 确保在其他元素上方 */
             flex-direction: column;
-            /* 垂直排列 */
             align-items: center;
-            /* 水平居中 */
             justify-content: center;
-            /* 垂直居中 */
             padding: 2rem;
-            /* 内边距 */
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
         }
-
-        /* 移动端导航菜单打开时的样式 */
+        
         .mobile-nav.open {
             display: flex;
-            /* 显示为弹性布局 */
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* 移动端导航链接样式 */
+        
         .mobile-nav a {
             display: block;
             width: 100%;
             max-width: 300px;
-            /* 最大宽度限制 */
             text-align: center;
-            /* 文字居中 */
             padding: 1rem;
-            /* 内边距 */
             margin: 0.5rem 0;
-            /* 外边距 */
             font-size: 1.25rem;
-            /* 字体大小 */
             font-weight: 600;
-            /* 字体粗细 */
             border-radius: 9999px;
-            /* 圆形边框 */
             transition: all 0.3s ease;
-            /* 过渡效果 */
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-
-        /* 移动端激活标签样式 */
+        
         .mobile-nav a.active-tab {
-            background-color: rgba(59, 130, 246, 0.1);
-            /* 浅蓝色背景 */
+            background: rgba(99, 102, 241, 0.1);
         }
-
-        /* 优化触摸目标大小 - 确保按钮在移动设备上易于点击 */
+        
         .touch-target {
             min-height: 44px;
-            /* 最小高度 */
             min-width: 44px;
-            /* 最小宽度 */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* 响应式文本大小 - 在移动设备上调整字体大小 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -10px); }
+            100% { transform: translate(0, 0px); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .logo-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--primary-color);
+        }
+        
+        .avatar-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
         @media (max-width: 640px) {
             .responsive-text {
                 font-size: 1.125rem;
-                /* 稍微增大字体 */
                 line-height: 1.6;
-                /* 增加行高提高可读性 */
+            }
+            
+            .mobile-padding {
+                padding: 1.5rem;
+            }
+            
+            .mobile-heading {
+                font-size: 2.5rem;
+            }
+            
+            .mobile-subheading {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 
-<body class="text-gray-800 min-h-screen">
-    <!-- 页面主体，使用灰色文字和最小高度为屏幕高度 -->
-
+<body class="min-h-screen">
     <!-- 导航栏 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
-        <!-- 毛玻璃效果，固定在顶部，有底部边框 -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <!-- 最大宽度容器，水平居中，响应式内边距 -->
             <div class="flex flex-row items-center justify-between">
-                <!-- 姓名/标题 -->
-                <h1 class="text-2xl font-bold text-gray-800">
-                    👨‍💻 潇
+                <h1 class="text-2xl font-bold">
+                    <i class="fas fa-code mr-2 text-indigo-500"></i><span class="logo-text">潇</span>
                 </h1>
-                <!-- 移动端导航切换按钮 - 使用sm:hidden类在桌面端隐藏 -->
+                
                 <div class="flex items-center sm:hidden">
-                    <!-- 移动端导航切换按钮 -->
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
-                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
-                        <!-- 汉堡菜单图标 -->
-                        ☰
+                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 touch-target ml-auto">
+                        <i class="fas fa-bars text-gray-700"></i>
                     </button>
                 </div>
-                <!-- 桌面端导航菜单 - 在移动端隐藏，在中等屏幕及以上显示 -->
+                
                 <nav class="hidden sm:flex space-x-4">
                     <a href="index.html"
-                        class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">关于我</a>
+                        class="tab-link active-tab text-lg font-medium py-2 px-4 transition duration-200">关于我</a>
                     <a href="web/skills.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">核心技能</a>
                     <a href="web/projects.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">项目经验</a>
                     <a href="web/contact.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- 移动端导航菜单 -->
+    <!-- 移动端专用导航菜单 -->
     <div id="mobile-nav" class="mobile-nav">
-        <!-- 移动端导航链接 -->
         <a href="index.html" class="active-tab">关于我</a>
         <a href="web/skills.html">核心技能</a>
         <a href="web/projects.html">项目经验</a>
         <a href="web/contact.html">联系我</a>
-        <!-- 关闭按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
-            <!-- 关闭图标 -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <i class="fas fa-times text-xl"></i>
         </button>
     </div>
 
     <!-- 主内容区域 -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow">
-        <!-- 最大宽度容器，响应式内边距，垂直间距，自动增长填充空间 -->
-
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
         <!-- 页面内容容器 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
-            <!-- 毛玻璃效果，响应式内边距，大圆角 -->
             <section class="py-6">
                 <!-- 个人介绍区域 -->
                 <div class="max-w-4xl mx-auto text-center">
                     <!-- 头像区域 -->
-                    <div class="mb-6">
-                        <img loading="lazy"
-                            class="w-24 sm:w-32 h-24 sm:h-32 mx-auto rounded-full object-cover border-4 border-gray-300 shadow-lg"
-                            src="images/avatar.jpg" alt="个人头像">
-                        <!-- 响应式圆形头像，有边框和阴影 -->
+                    <div class="mb-8">
+                        <div class="avatar-container floating">
+                            <img loading="lazy"
+                                class="w-32 sm:w-40 h-32 sm:h-40 mx-auto rounded-full object-cover border-4 border-white shadow-xl"
+                                src="images/avatar.jpg" alt="个人头像">
+                        </div>
                     </div>
+                    
                     <!-- 主标题 -->
-                    <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
-                        你好，世界！
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3 animate-fadeInUp">
+                        你好，我是<span class="gradient-text">潇</span>
                     </h2>
+                    
                     <!-- 副标题 -->
-                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-5">
-                        我是潇，一位充满好奇心的学习者。
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-700 mb-5 animate-fadeInUp delay-100">
+                        前端开发者 & 用户体验探索者
                     </h3>
+                    
                     <!-- 个人描述 -->
-                    <p class="responsive-text text-gray-600 mb-8 max-w-2xl mx-auto">
-                        我正在积极探索前端开发的奥秘，致力于将学习到的知识转化为优雅、直观的用户体验。
-                        虽然目前没有任何项目经验，但我具备快速学习和解决问题的强大能力，并渴望在实践中不断成长。
+                    <p class="responsive-text text-gray-600 mb-8 max-w-2xl mx-auto animate-fadeInUp delay-200">
+                        我专注于前端开发领域，热爱将创意转化为优雅、直观的用户体验。虽然目前仍在学习阶段，但我具备快速学习能力和解决问题的热情，渴望在实践中不断成长。
                     </p>
-                    <!-- 联系我按钮 -->
-                    <a href="web/contact.html"
-                        class="inline-block px-7 py-3 text-lg font-medium text-white bg-blue-500 rounded-full hover:bg-blue-600 transition duration-300 transform hover:scale-105 shadow-xl touch-target">
-                        联系我
-                    </a>
+                    
+                    <!-- 行动按钮 -->
+                    <div class="animate-fadeInUp delay-300">
+                        <a href="web/contact.html" class="btn-primary">
+                            <i class="fas fa-paper-plane mr-2"></i>联系我
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 快速技能概览 -->
+                <div class="mt-16 pt-8 border-t border-gray-200">
+                    <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">技术栈概览</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
+                            <i class="fab fa-html5 text-3xl text-orange-500 mb-2"></i>
+                            <p class="font-medium">HTML5</p>
+                        </div>
+                        <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
+                            <i class="fab fa-css3-alt text-3xl text-blue-500 mb-2"></i>
+                            <p class="font-medium">CSS3</p>
+                        </div>
+                        <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
+                            <i class="fab fa-js text-3xl text-yellow-500 mb-2"></i>
+                            <p class="font-medium">JavaScript</p>
+                        </div>
+                        <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
+                            <i class="fab fa-react text-3xl text-cyan-500 mb-2"></i>
+                            <p class="font-medium">React</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
     </main>
 
     <!-- 页脚 -->
-    <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
-        <!-- 浅灰色背景，顶部边框，上边距 -->
+    <footer class="py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- 版权信息 -->
-            <p>&copy; 2025 潇. 基于学习目的，持续迭代中。</p>
+            <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
+            <div class="mt-2 flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
     <!-- JavaScript代码 -->
     <script>
-        // 当DOM内容加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
-            // 获取DOM元素
-            const navToggle = document.getElementById('nav-toggle'); // 导航切换按钮
-            const mobileNav = document.getElementById('mobile-nav'); // 移动端导航菜单
-            const closeNav = document.getElementById('close-nav'); // 关闭导航按钮
+            // 自动更新版权年份
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // 移动端导航交互
+            const navToggle = document.getElementById('nav-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+            const closeNav = document.getElementById('close-nav');
 
-            // 打开移动端导航菜单的事件监听
             navToggle.addEventListener('click', () => {
-                mobileNav.classList.add('open'); // 添加open类显示菜单
-                document.body.style.overflow = 'hidden'; // 禁止背景滚动
+                mobileNav.classList.add('open');
+                document.body.style.overflow = 'hidden';
             });
 
-            // 关闭移动端导航菜单的事件监听
             closeNav.addEventListener('click', () => {
-                mobileNav.classList.remove('open'); // 移除open类隐藏菜单
-                document.body.style.overflow = ''; // 恢复背景滚动
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
             });
 
-            // 为移动端导航菜单中的所有链接添加点击事件
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
-                    mobileNav.classList.remove('open'); // 点击链接后关闭菜单
-                    document.body.style.overflow = ''; // 恢复背景滚动
+                    mobileNav.classList.remove('open');
+                    document.body.style.overflow = '';
                 });
             });
         });

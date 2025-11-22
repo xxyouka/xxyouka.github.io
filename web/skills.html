@@ -2,76 +2,202 @@
 <html lang="zh-CN">
 
 <head>
-    <!-- 文档基础设置 -->
     <meta charset="UTF-8">
-    <!-- 响应式视口设置，确保在不同设备上正常显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>核心技能 | 潇</title>
-    
-    <!-- SEO 相关元数据 -->
     <meta name="description" content="潇 的核心技能：Web 基础、前端框架与开发流程。欢迎查看项目与联系。">
     <meta name="robots" content="index, follow">
-    
-    <!-- 社交媒体分享元数据 -->
     <meta property="og:title" content="核心技能 | 潇">
     <meta property="og:description" content="潇 的核心技能：Web 基础、前端框架与开发流程。">
     <meta name="twitter:card" content="summary_large_image">
-    
-    <!-- 网站图标设置 -->
     <link rel="icon" href="/images/logo.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo.ico">
-    
-    <!-- 主题颜色和PWA配置 -->
-    <meta name="theme-color" content="#e7eafc">
+    <meta name="theme-color" content="#6366f1">
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- 引入 Tailwind CSS 框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 自定义样式 -->
     <style>
-        /* 基础字体设置 */
+        :root {
+            --primary-color: #6366f1;
+            --primary-light: #818cf8;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --accent-light: #22d3ee;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --light-bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
         body {
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            /* 渐变背景 */
-            background: linear-gradient(to bottom right, #f0f4f8, #e7eafc);
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #f0f7ff 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
-        /* 毛玻璃效果样式 */
         .frosted-glass {
-            background-color: rgba(255, 255, 255, 0.75);
-            /* 背景模糊效果 */
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
-        /* 卡片悬停动画效果 */
         .card-hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
         .card-hover-effect:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
-        /* 激活状态的标签页样式 */
-        .active-tab {
-            color: #3b82f6 !important;
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            border-bottom: none !important;
-            border-radius: 9999px !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* 标签页链接过渡效果 */
-        .tab-link {
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .skill-card:hover .skill-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .skill-icon::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: -1;
+            transition: transform 0.4s ease;
+        }
+        
+        .skill-card:hover .skill-icon::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .skill-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
             transition: all 0.3s ease;
         }
+        
+        .skill-list li:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+        
+        .skill-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-list li:hover::before {
+            transform: scale(1.3);
+        }
 
-        /* 移动端导航菜单样式 */
+        .page-title {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+        
+        .navbar {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .active-tab {
+            color: var(--primary-color) !important;
+            background: rgba(99, 102, 241, 0.1) !important;
+            border-radius: 9999px !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15) !important;
+        }
+        
+        .tab-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .tab-link:hover::after {
+            transform: scaleX(1);
+        }
+        
         .mobile-nav {
             display: none;
             position: fixed;
@@ -79,22 +205,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 50;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
         }
-
-        /* 移动端导航菜单打开状态 */
+        
         .mobile-nav.open {
             display: flex;
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* 移动端导航链接样式 */
+        
         .mobile-nav a {
             display: block;
             width: 100%;
@@ -106,14 +235,70 @@
             font-weight: 600;
             border-radius: 9999px;
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
-
-        /* 移动端激活状态导航链接 */
+        
         .mobile-nav a.active-tab {
-            background-color: rgba(59, 130, 246, 0.1);
+            background: rgba(99, 102, 241, 0.1);
         }
-
-        /* 触摸目标优化 - 确保按钮足够大以便触摸 */
+        
+        footer {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+        
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -10px); }
+            100% { transform: translate(0, 0px); }
+        }
+        
         .touch-target {
             min-height: 44px;
             min-width: 44px;
@@ -121,214 +306,353 @@
             align-items: center;
             justify-content: center;
         }
-
-        /* 移动端响应式文本优化 */
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .skill-level {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-color);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+        
+        .skill-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+        
+        .skill-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+        
+        .skill-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .additional-skills {
+            margin-top: 3rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .additional-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
         @media (max-width: 640px) {
             .responsive-text {
                 font-size: 1.125rem;
                 line-height: 1.6;
             }
-
-            /* 移动端内容区域内边距优化 */
+            
             .mobile-padding {
                 padding: 1.5rem;
             }
-
-            /* 移动端标题大小优化 */
+            
             .mobile-heading {
                 font-size: 2.5rem;
             }
-
-            /* 移动端副标题大小优化 */
+            
             .mobile-subheading {
                 font-size: 1.5rem;
             }
-
-            /* 移动端技能卡片间距优化 */
+            
             .skill-card {
                 margin-bottom: 1rem;
-            }
-
-            /* 移动端技能卡片内边距优化 */
-            .skill-card-padding {
                 padding: 1.5rem;
             }
-
-            /* 移动端列表项间距优化 */
-            .skill-list li {
-                margin-bottom: 0.5rem;
+            
+            .section-subtitle {
+                font-size: 1rem;
             }
         }
-
-        /* 移动端按钮间距优化 */
-        .mobile-button {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
-
-        /* 技能图标大小优化 */
-        .skill-icon {
-            font-size: 2.5rem;
+        
+        .logo-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
         }
-
-        /* 技能卡片高度统一和布局 */
-        .skill-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        
+        .social-icon {
+            transition: all 0.3s ease;
         }
-
-        /* 技能卡片内容区域弹性布局 */
-        .skill-content {
-            flex-grow: 1;
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--primary-color);
         }
     </style>
 </head>
 
-<body class="text-gray-800 min-h-screen">
+<body class="min-h-screen">
     <!-- 导航栏 -->
-    <!-- 使用毛玻璃效果，固定在顶部，带阴影 -->
-    <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
+    <header class="frosted-glass navbar sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
-                <!-- 网站标题 -->
-                <h1 class="text-2xl font-bold text-gray-800">
-                    👨‍💻 潇
+                <h1 class="text-2xl font-bold">
+                    <i class="fas fa-code mr-2 text-indigo-500"></i><span class="logo-text">潇</span>
                 </h1>
                 
-                <!-- 移动端导航切换按钮 - 仅在移动端显示 -->
                 <div class="flex items-center sm:hidden">
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
-                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
-                        ☰
+                        class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 touch-target ml-auto">
+                        <i class="fas fa-bars text-gray-700"></i>
                     </button>
                 </div>
                 
-                <!-- 桌面端导航菜单 - 在移动端隐藏 -->
                 <nav class="hidden sm:flex space-x-4">
                     <a href="../index.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">关于我</a>
                     <a href="skills.html"
-                        class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">核心技能</a>
+                        class="tab-link active-tab text-lg font-medium py-2 px-4 transition duration-200">核心技能</a>
                     <a href="projects.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">项目经验</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">项目经验</a>
                     <a href="contact.html"
-                        class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">联系我</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">联系我</a>
                 </nav>
             </div>
         </div>
     </header>
 
     <!-- 移动端专用导航菜单 -->
-    <!-- 全屏覆盖式导航，带模糊背景 -->
     <div id="mobile-nav" class="mobile-nav">
         <a href="../index.html">关于我</a>
         <a href="skills.html" class="active-tab">核心技能</a>
         <a href="projects.html">项目经验</a>
         <a href="contact.html">联系我</a>
-        <!-- 关闭按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
-            <!-- 关闭图标 -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <i class="fas fa-times text-xl"></i>
         </button>
     </div>
 
     <!-- 主内容区域 -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow mobile-padding">
-        <!-- 页面内容容器，使用毛玻璃效果 -->
+        <!-- 页面内容容器 -->
         <div class="frosted-glass p-6 sm:p-10 rounded-2xl">
             <section class="py-6">
-                <!-- 页面标题 -->
-                <h3 class="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900 mobile-subheading">
-                    核心技能与特质</h3>
+                <h3 class="page-title text-3xl sm:text-4xl font-bold text-center mb-4 mobile-subheading animate-fadeInUp">
+                    核心技能与特质
+                </h3>
+                <p class="section-subtitle animate-fadeInUp delay-100">
+                    作为一名充满热情的前端开发者，我专注于构建优雅、高效的用户界面，并持续学习最新的Web技术。以下是我在开发过程中积累的核心技能。
+                </p>
 
                 <!-- 技能卡片网格布局 -->
-                <!-- 移动端单列，桌面端多列 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="grid-container">
                     
                     <!-- Web 基础技能卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <!-- 技能图标 -->
-                        <div class="skill-icon text-blue-500 mb-3 text-center">💻</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-100">
+                        <div class="skill-icon text-blue-500 text-center">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">Web 基础</h4>
-                            <!-- 技能列表 -->
-                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                            <h4 class="skill-title">Web 基础</h4>
+                            <ul class="text-gray-600 space-y-1 skill-list">
                                 <li>HTML5 (语义化)</li>
                                 <li>CSS3 (Flexbox, Grid)</li>
                                 <li>JavaScript (ES6+)</li>
+                                <li>响应式设计</li>
+                                <li>浏览器兼容性</li>
                             </ul>
+                            <div class="mt-auto pt-4">
+                                <div class="skill-tag">响应式设计</div>
+                                <div class="skill-tag">浏览器兼容</div>
+                                <div class="skill-tag">性能优化</div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- 快速学习能力卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="skill-icon text-green-500 mb-3 text-center">🚀</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-200">
+                        <div class="skill-icon text-green-500 text-center">
+                            <i class="fas fa-bolt"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">快速学习能力</h4>
-                            <p class="text-gray-600 responsive-text">
-                                对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。
+                            <h4 class="skill-title">快速学习能力</h4>
+                            <p class="skill-description">
+                                对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。持续关注前端技术发展趋势，并将其应用于实际项目中。
                             </p>
+                            <div class="mt-auto">
+                                <div class="text-sm font-medium text-gray-700">学习效率</div>
+                                <div class="progress-bar">
+                                    <div class="progress w-4/5"></div>
+                                </div>
+                                <div class="skill-level">
+                                    <span>基础</span>
+                                    <span>精通</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- 问题解决能力卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="skill-icon text-yellow-500 mb-3 text-center">💡</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-300">
+                        <div class="skill-icon text-yellow-500 text-center">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">问题解决者</h4>
-                            <p class="text-gray-600 responsive-text">
-                                享受分析和解决复杂问题的过程，乐于探索最佳实践方案。
+                            <h4 class="skill-title">问题解决者</h4>
+                            <p class="skill-description">
+                                享受分析和解决复杂问题的过程，乐于探索最佳实践方案。能够快速定位问题并找到有效的解决方案。
                             </p>
+                            <div class="mt-auto">
+                                <div class="text-sm font-medium text-gray-700">问题解决能力</div>
+                                <div class="progress-bar">
+                                    <div class="progress w-3/4"></div>
+                                </div>
+                                <div class="skill-level">
+                                    <span>基础</span>
+                                    <span>精通</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- 工具与实践卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="skill-icon text-red-500 mb-3 text-center">🛠️</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-400">
+                        <div class="skill-icon text-red-500 text-center">
+                            <i class="fas fa-tools"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">工具与实践</h4>
-                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                            <h4 class="skill-title">工具与实践</h4>
+                            <ul class="text-gray-600 space-y-1 skill-list">
                                 <li>Git / GitHub</li>
-                                <li>响应式设计</li>
                                 <li>VS Code / 开发者工具</li>
+                                <li>Figma / Adobe XD</li>
+                                <li>Webpack / Vite</li>
+                                <li>Postman / API测试</li>
                             </ul>
+                            <div class="mt-auto pt-4">
+                                <div class="skill-tag">Chrome DevTools</div>
+                                <div class="skill-tag">Figma</div>
+                                <div class="skill-tag">Postman</div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- 前端框架卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="skill-icon text-purple-500 mb-3 text-center">📱</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-500">
+                        <div class="skill-icon text-purple-500 text-center">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">前端框架</h4>
-                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                            <h4 class="skill-title">前端框架</h4>
+                            <ul class="text-gray-600 space-y-1 skill-list">
                                 <li>React 基础</li>
                                 <li>Vue.js 入门</li>
                                 <li>Tailwind CSS</li>
+                                <li>Bootstrap</li>
+                                <li>UI组件库</li>
                             </ul>
+                            <div class="mt-auto pt-4">
+                                <div class="skill-tag">组件化开发</div>
+                                <div class="skill-tag">状态管理</div>
+                                <div class="skill-tag">UI/UX设计</div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- 开发流程卡片 -->
-                    <div
-                        class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
-                        <div class="skill-icon text-indigo-500 mb-3 text-center">🔧</div>
+                    <div class="card-hover-effect skill-card animate-fadeInUp delay-600">
+                        <div class="skill-icon text-indigo-500 text-center">
+                            <i class="fas fa-cogs"></i>
+                        </div>
                         <div class="skill-content">
-                            <h4 class="text-xl font-semibold mb-2 text-center">开发流程</h4>
-                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                            <h4 class="skill-title">开发流程</h4>
+                            <ul class="text-gray-600 space-y-1 skill-list">
                                 <li>版本控制</li>
                                 <li>调试技巧</li>
                                 <li>代码规范</li>
+                                <li>测试驱动开发</li>
+                                <li>持续集成/部署</li>
                             </ul>
+                            <div class="mt-auto pt-4">
+                                <div class="skill-tag">敏捷开发</div>
+                                <div class="skill-tag">代码审查</div>
+                                <div class="skill-tag">持续集成</div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- 额外技能部分 -->
+                <div class="additional-skills">
+                    <h4 class="additional-title">其他技能与兴趣</h4>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <div class="skill-tag">TypeScript</div>
+                        <div class="skill-tag">Node.js</div>
+                        <div class="skill-tag">RESTful API</div>
+                        <div class="skill-tag">Webpack</div>
+                        <div class="skill-tag">SASS/SCSS</div>
+                        <div class="skill-tag">UI/UX设计</div>
+                        <div class="skill-tag">跨平台开发</div>
+                        <div class="skill-tag">性能优化</div>
+                        <div class="skill-tag">PWA</div>
+                        <div class="skill-tag">GraphQL</div>
+                        <div class="skill-tag">单元测试</div>
+                        <div class="skill-tag">SEO优化</div>
                     </div>
                 </div>
             </section>
@@ -336,45 +660,65 @@
     </main>
 
     <!-- 页脚 -->
-    <footer class="bg-gray-100 py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
+    <footer class="py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- 动态年份显示 -->
             <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
-            <script>
-                // 自动更新版权年份
-                document.getElementById('year').textContent = new Date().getFullYear();
-            </script>
+            <div class="mt-2 flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 social-icon">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
-    <!-- 移动端导航交互逻辑 -->
     <script>
-        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
-            // 获取DOM元素
+            // 自动更新版权年份
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // 移动端导航交互
             const navToggle = document.getElementById('nav-toggle');
             const mobileNav = document.getElementById('mobile-nav');
             const closeNav = document.getElementById('close-nav');
 
-            // 打开移动端导航菜单事件
             navToggle.addEventListener('click', () => {
                 mobileNav.classList.add('open');
-                // 防止背景内容滚动
                 document.body.style.overflow = 'hidden';
             });
 
-            // 关闭移动端导航菜单事件
             closeNav.addEventListener('click', () => {
                 mobileNav.classList.remove('open');
-                // 恢复背景滚动
                 document.body.style.overflow = '';
             });
 
-            // 点击导航链接时关闭菜单
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNav.classList.remove('open');
                     document.body.style.overflow = '';
+                });
+            });
+            
+            // 进度条动画
+            setTimeout(() => {
+                document.querySelectorAll('.progress').forEach(progress => {
+                    progress.style.width = progress.classList.contains('w-4/5') ? '80%' : '75%';
+                });
+            }, 500);
+            
+            // 添加卡片悬停效果增强
+            document.querySelectorAll('.skill-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
                 });
             });
         });
