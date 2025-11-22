@@ -175,6 +175,27 @@
                 margin-bottom: 1.5rem;
             }
         }
+        
+        /* 联系卡片图标样式 */
+        .contact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* 联系卡片布局优化 */
+        .contact-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        /* 联系卡片内容区域 */
+        .contact-card-content {
+            margin-left: 0.75rem;
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen">
@@ -182,21 +203,21 @@
     <!-- 通知区域 -->
     <div id="notification" class="notification"></div>
 
-    <!-- 导航栏 - 修改：移动端按钮靠右 -->
+    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：移动端按钮靠右 -->
-                <div class="flex items-center">
+                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+                <div class="flex items-center sm:hidden">
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
                             class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 修改：桌面端导航 -->
+                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
                 <nav class="hidden sm:flex space-x-4">
                     <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
                     <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
@@ -278,20 +299,28 @@
                         </div>
                     </form>
                     
-                    <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 justify-center">
+                    <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0 justify-center">
                         <!-- 邮箱 -->
-                        <a href="mailto:1420272691@qq.com" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-blue-600 border border-gray-200 contact-card touch-target">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
-                            </svg>
-                            <span>1420272691@qq.com</span>
+                        <a href="mailto:1420272691@qq.com" class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+                            <div class="contact-icon text-blue-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                    <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <span class="text-lg font-semibold text-blue-600">1420272691@qq.com</span>
+                            </div>
                         </a>
                         
                         <!-- GitHub -->
-                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect p-3 bg-white/70 rounded-xl shadow-sm transition duration-200 flex items-center space-x-3 text-lg font-semibold text-gray-700 border border-gray-200 contact-card touch-target">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-                            <span>GitHub</span>
+                        <a href="https://github.com/xxyouka/xxyouka.github.io" target="_blank" class="card-hover-effect contact-card bg-white/70 shadow-sm border border-gray-200 touch-target">
+                            <div class="contact-icon text-gray-700">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.418 2.867 8.163 6.842 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.47-1.11-1.47-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.90.832.092-.647.359-1.088.65-1.334-2.22-.251-4.553-1.113-4.553-4.956 0-1.092.39-1.983 1.029-2.685-.103-.254-.448-1.27.098-2.651 0 0 .84-.27 2.75 1.022A9.632 9.632 0 0112 5.844a9.632 9.632 0 012.55.344c1.91-1.292 2.75-1.022 2.75-1.022.546 1.381.201 2.397.098 2.651.64.702 1.029 1.593 1.029 2.685 0 3.853-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.334-.012 2.41-.012 2.72 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <span class="text-lg font-semibold text-gray-700">GitHub</span>
+                            </div>
                         </a>
                     </div>
                 </div>

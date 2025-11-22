@@ -145,25 +145,37 @@
         .skill-icon {
             font-size: 2.5rem;
         }
+        
+        /* 技能卡片高度统一 */
+        .skill-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 技能卡片内容区域 */
+        .skill-content {
+            flex-grow: 1;
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen">
 
-    <!-- 导航栏 - 修改：移动端按钮靠右 -->
+    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：移动端按钮靠右 -->
-                <div class="flex items-center">
+                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+                <div class="flex items-center sm:hidden">
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
                             class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 修改：桌面端导航 -->
+                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
                 <nav class="hidden sm:flex space-x-4">
                     <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
                     <a href="skills.html" class="tab-link active-tab text-lg font-medium py-2 px-4 rounded-full transition duration-200">核心技能</a>
@@ -203,58 +215,70 @@
                     <!-- 修改：添加了移动端技能卡片优化类 -->
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-blue-500 mb-3 text-center">💻</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">Web 基础</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
-                            <li>HTML5 (语义化)</li>
-                            <li>CSS3 (Flexbox, Grid)</li>
-                            <li>JavaScript (ES6+)</li>
-                        </ul>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">Web 基础</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                                <li>HTML5 (语义化)</li>
+                                <li>CSS3 (Flexbox, Grid)</li>
+                                <li>JavaScript (ES6+)</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-green-500 mb-3 text-center">🚀</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">快速学习能力</h4>
-                        <p class="text-gray-600 responsive-text">
-                            对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。
-                        </p>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">快速学习能力</h4>
+                            <p class="text-gray-600 responsive-text">
+                                对新技术充满热情，能迅速掌握新框架、新工具并付诸实践。
+                            </p>
+                        </div>
                     </div>
 
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-yellow-500 mb-3 text-center">💡</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">问题解决者</h4>
-                        <p class="text-gray-600 responsive-text">
-                            享受分析和解决复杂问题的过程，乐于探索最佳实践方案。
-                        </p>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">问题解决者</h4>
+                            <p class="text-gray-600 responsive-text">
+                                享受分析和解决复杂问题的过程，乐于探索最佳实践方案。
+                            </p>
+                        </div>
                     </div>
 
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-red-500 mb-3 text-center">🛠️</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">工具与实践</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
-                            <li>Git / GitHub</li>
-                            <li>响应式设计</li>
-                            <li>VS Code / 开发者工具</li>
-                        </ul>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">工具与实践</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                                <li>Git / GitHub</li>
+                                <li>响应式设计</li>
+                                <li>VS Code / 开发者工具</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-purple-500 mb-3 text-center">📱</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">前端框架</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
-                            <li>React 基础</li>
-                            <li>Vue.js 入门</li>
-                            <li>Tailwind CSS</li>
-                        </ul>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">前端框架</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                                <li>React 基础</li>
+                                <li>Vue.js 入门</li>
+                                <li>Tailwind CSS</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="card-hover-effect skill-card skill-card-padding bg-white/70 rounded-xl shadow-sm transition duration-200 border border-gray-100">
                         <div class="skill-icon text-indigo-500 mb-3 text-center">🔧</div>
-                        <h4 class="text-xl font-semibold mb-2 text-center">开发流程</h4>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
-                            <li>版本控制</li>
-                            <li>调试技巧</li>
-                            <li>代码规范</li>
-                        </ul>
+                        <div class="skill-content">
+                            <h4 class="text-xl font-semibold mb-2 text-center">开发流程</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4 skill-list">
+                                <li>版本控制</li>
+                                <li>调试技巧</li>
+                                <li>代码规范</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>

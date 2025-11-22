@@ -146,25 +146,43 @@
                 margin-top: 1rem;
             }
         }
+        
+        /* 项目卡片图标样式 */
+        .project-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 项目卡片高度统一 */
+        .project-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 项目卡片内容区域 */
+        .project-content {
+            flex-grow: 1;
+        }
     </style>
 </head>
 <body class="text-gray-800 min-h-screen">
 
-    <!-- 导航栏 - 修改：移动端按钮靠右 -->
+    <!-- 导航栏 - 已修改：移动端按钮在桌面端隐藏 -->
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
                 <h1 class="text-2xl font-bold text-gray-800">
                     👨‍💻 潇
                 </h1>
-                <!-- 修改：移动端按钮靠右 -->
-                <div class="flex items-center">
+                <!-- 修改：添加 sm:hidden 类，使移动端按钮在桌面端隐藏 -->
+                <div class="flex items-center sm:hidden">
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" 
                             class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 touch-target ml-auto">
                         ☰
                     </button>
                 </div>
-                <!-- 修改：桌面端导航 -->
+                <!-- 桌面端导航 - 在移动端隐藏，在桌面端显示 -->
                 <nav class="hidden sm:flex space-x-4">
                     <a href="../index.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">关于我</a>
                     <a href="skills.html" class="tab-link text-lg font-medium py-2 px-4 rounded-full transition duration-200 hover:text-blue-500 hover:bg-white/70">核心技能</a>
@@ -207,42 +225,54 @@
                         
                         <!-- 项目 1 - 修改：添加了移动端优化类 -->
                         <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-indigo-400 rounded-lg shadow-sm transition duration-200">
-                            <h4 class="project-title font-semibold text-indigo-700 mb-2">简约待办事项应用 (React + LocalStorage)</h4>
-                            <p class="text-sm text-gray-500">主要技术栈: React, Hooks, Tailwind CSS</p>
-                            <p class="text-gray-700 project-description responsive-text">
-                                实现了任务的增删改查，利用 React State 和 LocalStorage 实现了数据的持久化存储，重点练习了组件间通信和状态管理。
-                            </p>
-                            <a href="https://github.com/zhangxiaoming-dev/todo-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            <div class="project-icon text-indigo-500 text-center">✅</div>
+                            <div class="project-content">
+                                <h4 class="project-title font-semibold text-indigo-700 mb-2">简约待办事项应用 (React + LocalStorage)</h4>
+                                <p class="text-sm text-gray-500">主要技术栈: React, Hooks, Tailwind CSS</p>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    实现了任务的增删改查，利用 React State 和 LocalStorage 实现了数据的持久化存储，重点练习了组件间通信和状态管理。
+                                </p>
+                                <a href="https://github.com/zhangxiaoming-dev/todo-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            </div>
                         </div>
 
                         <!-- 项目 2 - 修改：添加了移动端优化类 -->
                         <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-teal-400 rounded-lg shadow-sm transition duration-200">
-                            <h4 class="project-title font-semibold text-teal-700 mb-2">响应式公司官网原型 (HTML/CSS)</h4>
-                            <p class="text-sm text-gray-500">主要技术栈: HTML5, CSS Grid/Flexbox, 纯 JavaScript</p>
-                            <p class="text-gray-700 project-description responsive-text">
-                                一个完全响应式的多页面网站原型，展示了我对 Mobile-First 设计原则和现代 CSS 布局的掌握。
-                            </p>
-                            <a href="https://github.com/zhangxiaoming-dev/responsive-website" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            <div class="project-icon text-teal-500 text-center">🌐</div>
+                            <div class="project-content">
+                                <h4 class="project-title font-semibold text-teal-700 mb-2">响应式公司官网原型 (HTML/CSS)</h4>
+                                <p class="text-sm text-gray-500">主要技术栈: HTML5, CSS Grid/Flexbox, 纯 JavaScript</p>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    一个完全响应式的多页面网站原型，展示了我对 Mobile-First 设计原则和现代 CSS 布局的掌握。
+                                </p>
+                                <a href="https://github.com/zhangxiaoming-dev/responsive-website" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            </div>
                         </div>
                         
                         <!-- 项目 3 - 修改：添加了移动端优化类 -->
                         <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-purple-400 rounded-lg shadow-sm transition duration-200">
-                            <h4 class="project-title font-semibold text-purple-700 mb-2">天气查询应用 (API 集成)</h4>
-                            <p class="text-sm text-gray-500">主要技术栈: JavaScript, Fetch API, 响应式设计</p>
-                            <p class="text-gray-700 project-description responsive-text">
-                                集成了天气 API，实现根据用户位置或输入查询天气信息的功能，练习了异步数据获取和错误处理。
-                            </p>
-                            <a href="https://github.com/zhangxiaoming-dev/weather-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            <div class="project-icon text-purple-500 text-center">🌤️</div>
+                            <div class="project-content">
+                                <h4 class="project-title font-semibold text-purple-700 mb-2">天气查询应用 (API 集成)</h4>
+                                <p class="text-sm text-gray-500">主要技术栈: JavaScript, Fetch API, 响应式设计</p>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    集成了天气 API，实现根据用户位置或输入查询天气信息的功能，练习了异步数据获取和错误处理。
+                                </p>
+                                <a href="https://github.com/zhangxiaoming-dev/weather-app" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            </div>
                         </div>
                         
                         <!-- 项目 4 - 修改：添加了移动端优化类 -->
                         <div class="card-hover-effect project-card project-card-padding bg-white/70 border-l-4 border-yellow-400 rounded-lg shadow-sm transition duration-200">
-                            <h4 class="project-title font-semibold text-yellow-700 mb-2">个人作品集网站 (Vue.js)</h4>
-                            <p class="text-sm text-gray-500">主要技术栈: Vue.js, Vue Router, CSS 动画</p>
-                            <p class="text-gray-700 project-description responsive-text">
-                                使用 Vue.js 框架构建的个人作品集网站，展示了组件化开发和前端路由的应用。
-                            </p>
-                            <a href="https://github.com/zhangxiaoming-dev/portfolio-vue" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            <div class="project-icon text-yellow-500 text-center">🎨</div>
+                            <div class="project-content">
+                                <h4 class="project-title font-semibold text-yellow-700 mb-2">个人作品集网站 (Vue.js)</h4>
+                                <p class="text-sm text-gray-500">主要技术栈: Vue.js, Vue Router, CSS 动画</p>
+                                <p class="text-gray-700 project-description responsive-text">
+                                    使用 Vue.js 框架构建的个人作品集网站，展示了组件化开发和前端路由的应用。
+                                </p>
+                                <a href="https://github.com/zhangxiaoming-dev/portfolio-vue" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm project-link block touch-target">查看项目链接 →</a>
+                            </div>
                         </div>
                     </div>
                 </div>
