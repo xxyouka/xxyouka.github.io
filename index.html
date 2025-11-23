@@ -3,25 +3,25 @@
 
 <head>
     <!-- 文档基础设置 -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>潇 | 前端开发者</title>
+    <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8，支持中文显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> <!-- 响应式视口设置 -->
+    <title>潇 | 前端开发者</title> <!-- 页面标题，显示在浏览器标签页上 -->
 
     <!-- SEO优化相关元标签 -->
-    <meta name="description" content="潇的个人主页 — 专注于前端开发与用户体验设计。查看我的技能、项目并联系我。">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="潇的个人主页 — 专注于前端开发与用户体验设计。查看我的技能、项目并联系我。"> <!-- 页面描述，用于搜索引擎结果展示 -->
+    <meta name="robots" content="index, follow"> <!-- 指示搜索引擎可以索引此页面并跟踪链接 -->
 
     <!-- Open Graph / Social 社交媒体分享优化 -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="潇 | 前端开发者">
-    <meta property="og:description" content="专注于前端开发与用户体验设计 — 这是我的个人主页，欢迎联系。">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="website"> <!-- 定义页面类型为网站 -->
+    <meta property="og:title" content="潇 | 前端开发者"> <!-- 社交媒体分享时的标题 -->
+    <meta property="og:description" content="专注于前端开发与用户体验设计 — 这是我的个人主页，欢迎联系。"> <!-- 社交媒体分享时的描述 -->
+    <meta name="twitter:card" content="summary_large_image"> <!-- Twitter卡片类型设置 -->
 
     <!-- 网站图标和主题色 -->
-    <link rel="icon" href="/images/logo.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/images/logo.ico">
-    <meta name="theme-color" content="#6366f1">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/images/logo.ico" type="image/x-icon"> <!-- 网站图标 -->
+    <link rel="apple-touch-icon" href="/images/logo.ico"> <!-- iOS设备上使用的图标 -->
+    <meta name="theme-color" content="#6366f1"> <!-- 浏览器地址栏主题色 -->
+    <link rel="manifest" href="/manifest.json"> <!-- PWA应用清单文件 -->
 
     <!-- 引入Tailwind CSS框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,236 +30,263 @@
 
     <!-- 自定义CSS样式 -->
     <style>
+        /* CSS变量定义，便于维护和统一管理颜色 */
         :root {
-            --primary-color: #6366f1;
-            --primary-light: #818cf8;
-            --secondary-color: #8b5cf6;
-            --accent-color: #06b6d4;
-            --text-color: #1f2937;
-            --text-light: #6b7280;
-            --light-bg: #f8fafc;
+            --primary-color: #6366f1; /* 主色调 - 靛蓝色 */
+            --primary-light: #818cf8; /* 主色调浅色版 */
+            --secondary-color: #8b5cf6; /* 次要色调 - 紫色 */
+            --accent-color: #06b6d4; /* 强调色 - 青色 */
+            --text-color: #1f2937; /* 主要文字颜色 - 深灰色 */
+            --text-light: #6b7280; /* 浅色文字颜色 - 中灰色 */
+            --light-bg: #f8fafc; /* 浅色背景 */
         }
         
+        /* 全局主体样式 */
         body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #f0f7ff 100%);
-            color: var(--text-color);
-            min-height: 100vh;
-            line-height: 1.6;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; /* 字体栈，优先使用系统字体 */
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #f0f7ff 100%); /* 渐变背景 */
+            color: var(--text-color); /* 文字颜色使用CSS变量 */
+            min-height: 100vh; /* 最小高度为视口高度 */
+            line-height: 1.6; /* 行高设置，提高可读性 */
         }
 
+        /* 毛玻璃效果样式类 */
         .frosted-glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.85); /* 半透明白色背景 */
+            backdrop-filter: blur(20px) saturate(180%); /* 背景模糊和饱和度增强 */
+            -webkit-backdrop-filter: blur(20px) saturate(180%); /* Safari兼容性前缀 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 半透明边框 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* 柔和阴影 */
         }
 
+        /* 卡片悬停效果 */
         .card-hover-effect {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 自定义缓动函数的过渡效果 */
         }
 
         .card-hover-effect:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px); /* 悬停时向上移动 */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* 悬停时阴影增强 */
         }
 
+        /* 活动标签页样式 */
         .active-tab {
-            color: var(--primary-color) !important;
-            background: rgba(99, 102, 241, 0.1) !important;
-            border-radius: 9999px !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15) !important;
+            color: var(--primary-color) !important; /* 使用主色调 */
+            background: rgba(99, 102, 241, 0.1) !important; /* 半透明背景 */
+            border-radius: 9999px !important; /* 圆形边框 */
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15) !important; /* 阴影效果 */
         }
 
+        /* 标签页链接样式 */
         .tab-link {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease; /* 过渡效果 */
+            position: relative; /* 相对定位，为伪元素定位做准备 */
+            overflow: hidden; /* 隐藏溢出内容 */
         }
         
+        /* 标签页链接底部指示线 */
         .tab-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--primary-color);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            content: ''; /* 伪元素内容为空 */
+            position: absolute; /* 绝对定位 */
+            bottom: 0; /* 定位到底部 */
+            left: 0; /* 定位到左侧 */
+            width: 100%; /* 宽度100% */
+            height: 2px; /* 高度2px */
+            background: var(--primary-color); /* 使用主色调 */
+            transform: scaleX(0); /* 初始缩放为0，不可见 */
+            transition: transform 0.3s ease; /* 过渡效果 */
         }
         
+        /* 悬停时显示底部指示线 */
         .tab-link:hover::after {
-            transform: scaleX(1);
+            transform: scaleX(1); /* 缩放为1，显示指示线 */
         }
 
+        /* 移动端导航样式 */
         .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 50;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.4s ease;
+            display: none; /* 默认隐藏 */
+            position: fixed; /* 固定定位 */
+            top: 0; /* 定位到顶部 */
+            left: 0; /* 定位到左侧 */
+            width: 100%; /* 宽度100% */
+            height: 100%; /* 高度100% */
+            background: rgba(255, 255, 255, 0.97); /* 半透明白色背景 */
+            backdrop-filter: blur(15px); /* 背景模糊效果 */
+            -webkit-backdrop-filter: blur(15px); /* Safari兼容性前缀 */
+            z-index: 50; /* 层级设置，确保在其他元素之上 */
+            flex-direction: column; /* 弹性布局，垂直排列 */
+            align-items: center; /* 水平居中 */
+            justify-content: center; /* 垂直居中 */
+            padding: 2rem; /* 内边距 */
+            opacity: 0; /* 初始透明度为0 */
+            transform: translateY(-20px); /* 初始位置向上偏移20px */
+            transition: all 0.4s ease; /* 过渡效果 */
         }
         
+        /* 移动端导航打开状态 */
         .mobile-nav.open {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
+            display: flex; /* 显示为弹性布局 */
+            opacity: 1; /* 完全不透明 */
+            transform: translateY(0); /* 位置恢复正常 */
         }
         
+        /* 移动端导航链接样式 */
         .mobile-nav a {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            text-align: center;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: block; /* 块级显示 */
+            width: 100%; /* 宽度100% */
+            max-width: 300px; /* 最大宽度限制 */
+            text-align: center; /* 文字居中 */
+            padding: 1rem; /* 内边距 */
+            margin: 0.5rem 0; /* 上下外边距 */
+            font-size: 1.25rem; /* 字体大小 */
+            font-weight: 600; /* 字体粗细 */
+            border-radius: 9999px; /* 圆形边框 */
+            transition: all 0.3s ease; /* 过渡效果 */
+            background: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 阴影效果 */
         }
         
+        /* 移动端导航活动标签页样式 */
         .mobile-nav a.active-tab {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(99, 102, 241, 0.1); /* 半透明主色调背景 */
         }
         
+        /* 触摸目标尺寸优化，确保可点击区域足够大 */
         .touch-target {
-            min-height: 44px;
-            min-width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-height: 44px; /* 最小高度 */
+            min-width: 44px; /* 最小宽度 */
+            display: flex; /* 弹性布局 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
         }
 
+        /* 淡入向上动画定义 */
         @keyframes fadeInUp {
             from {
-                opacity: 0;
-                transform: translateY(30px);
+                opacity: 0; /* 初始透明度为0 */
+                transform: translateY(30px); /* 初始位置向下偏移30px */
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+                opacity: 1; /* 最终透明度为1 */
+                transform: translateY(0); /* 最终位置恢复正常 */
             }
         }
         
+        /* 淡入向上动画类 */
         .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease forwards;
-            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards; /* 应用动画 */
+            opacity: 0; /* 初始透明度为0 */
         }
         
+        /* 延迟动画类 */
         .delay-100 {
-            animation-delay: 0.1s;
+            animation-delay: 0.1s; /* 延迟0.1秒 */
         }
         
         .delay-200 {
-            animation-delay: 0.2s;
+            animation-delay: 0.2s; /* 延迟0.2秒 */
         }
         
         .delay-300 {
-            animation-delay: 0.3s;
+            animation-delay: 0.3s; /* 延迟0.3秒 */
         }
         
+        /* 浮动动画定义 */
         @keyframes floating {
-            0% { transform: translate(0, 0px); }
-            50% { transform: translate(0, -10px); }
-            100% { transform: translate(0, 0px); }
+            0% { transform: translate(0, 0px); } /* 初始位置 */
+            50% { transform: translate(0, -10px); } /* 中间位置向上偏移 */
+            100% { transform: translate(0, 0px); } /* 回到初始位置 */
         }
         
+        /* 浮动动画类 */
         .floating {
-            animation: floating 3s ease-in-out infinite;
+            animation: floating 3s ease-in-out infinite; /* 应用无限循环浮动动画 */
         }
         
+        /* 渐变文字效果 */
         .gradient-text {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color)); /* 渐变背景 */
+            -webkit-background-clip: text; /* Safari兼容性前缀，背景裁剪为文字 */
+            background-clip: text; /* 背景裁剪为文字 */
+            color: transparent; /* 文字颜色透明，显示背景渐变 */
+            font-weight: 700; /* 字体加粗 */
         }
         
+        /* 标志文字渐变效果 */
         .logo-text {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); /* 渐变背景 */
+            -webkit-background-clip: text; /* Safari兼容性前缀 */
+            background-clip: text; /* 背景裁剪为文字 */
+            color: transparent; /* 文字颜色透明 */
+            font-weight: 700; /* 字体加粗 */
         }
         
+        /* 主要按钮样式 */
         .btn-primary {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); /* 渐变背景 */
+            color: white; /* 白色文字 */
+            font-weight: 600; /* 字体粗细 */
+            padding: 0.75rem 1.5rem; /* 内边距 */
+            border-radius: 9999px; /* 圆形边框 */
+            transition: all 0.3s ease; /* 过渡效果 */
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); /* 阴影效果 */
+            display: inline-block; /* 行内块级显示 */
         }
         
+        /* 按钮悬停效果 */
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px); /* 向上移动 */
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4); /* 阴影增强 */
         }
         
+        /* 社交图标样式 */
         .social-icon {
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* 过渡效果 */
         }
         
+        /* 社交图标悬停效果 */
         .social-icon:hover {
-            transform: translateY(-3px);
-            color: var(--primary-color);
+            transform: translateY(-3px); /* 向上移动 */
+            color: var(--primary-color); /* 颜色变为主色调 */
         }
         
+        /* 头像容器样式 */
         .avatar-container {
-            position: relative;
-            display: inline-block;
+            position: relative; /* 相对定位 */
+            display: inline-block; /* 行内块级显示 */
         }
         
+        /* 头像容器边框效果 */
         .avatar-container::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0.7;
+            content: ''; /* 伪元素内容为空 */
+            position: absolute; /* 绝对定位 */
+            top: -4px; /* 定位偏移 */
+            left: -4px; /* 定位偏移 */
+            right: -4px; /* 定位偏移 */
+            bottom: -4px; /* 定位偏移 */
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color)); /* 渐变背景 */
+            border-radius: 50%; /* 圆形边框 */
+            z-index: -1; /* 层级设置为-1，在头像下方 */
+            opacity: 0.7; /* 半透明效果 */
         }
         
+        /* 移动端响应式样式 */
         @media (max-width: 640px) {
             .responsive-text {
-                font-size: 1.125rem;
-                line-height: 1.6;
+                font-size: 1.125rem; /* 字体大小 */
+                line-height: 1.6; /* 行高 */
             }
             
             .mobile-padding {
-                padding: 1.5rem;
+                padding: 1.5rem; /* 内边距 */
             }
             
             .mobile-heading {
-                font-size: 2.5rem;
+                font-size: 2.5rem; /* 标题字体大小 */
             }
             
             .mobile-subheading {
-                font-size: 1.5rem;
+                font-size: 1.5rem; /* 副标题字体大小 */
             }
         }
     </style>
@@ -270,10 +297,12 @@
     <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-row items-center justify-between">
+                <!-- 网站标志 -->
                 <h1 class="text-2xl font-bold">
                     <i class="fas fa-code mr-2 text-indigo-500"></i><span class="logo-text">潇</span>
                 </h1>
                 
+                <!-- 移动端导航切换按钮 -->
                 <div class="flex items-center sm:hidden">
                     <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
                         class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 touch-target ml-auto">
@@ -281,13 +310,14 @@
                     </button>
                 </div>
                 
+                <!-- 桌面端导航菜单 -->
                 <nav class="hidden sm:flex space-x-4">
                     <a href="index.html"
                         class="tab-link active-tab text-lg font-medium py-2 px-4 transition duration-200">关于我</a>
                     <a href="web/skills.html"
                         class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">核心技能</a>
                     <a href="web/projects.html"
-                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">项目经验</a>
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">学习项目</a>
                     <a href="web/contact.html"
                         class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">联系我</a>
                 </nav>
@@ -299,8 +329,9 @@
     <div id="mobile-nav" class="mobile-nav">
         <a href="index.html" class="active-tab">关于我</a>
         <a href="web/skills.html">核心技能</a>
-        <a href="web/projects.html">项目经验</a>
+        <a href="web/projects.html">学习项目</a>
         <a href="web/contact.html">联系我</a>
+        <!-- 关闭导航按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
             <i class="fas fa-times text-xl"></i>
         </button>
@@ -334,7 +365,7 @@
                     
                     <!-- 个人描述 -->
                     <p class="responsive-text text-gray-600 mb-8 max-w-2xl mx-auto animate-fadeInUp delay-200">
-                        我专注于前端开发领域，热爱将创意转化为优雅、直观的用户体验。虽然目前仍在学习阶段，但我具备快速学习能力和解决问题的热情，渴望在实践中不断成长。
+                        我专注于计算机领域，热爱将创意转化为优雅、直观的用户体验。虽然目前仍在学习阶段，但我具备快速学习能力和解决问题的热情，渴望在实践中不断成长。
                     </p>
                     
                     <!-- 行动按钮 -->
@@ -349,18 +380,22 @@
                 <div class="mt-16 pt-8 border-t border-gray-200">
                     <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">技术栈概览</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        <!-- HTML5技能卡片 -->
                         <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
                             <i class="fab fa-html5 text-3xl text-orange-500 mb-2"></i>
                             <p class="font-medium">HTML5</p>
                         </div>
+                        <!-- CSS3技能卡片 -->
                         <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
                             <i class="fab fa-css3-alt text-3xl text-blue-500 mb-2"></i>
                             <p class="font-medium">CSS3</p>
                         </div>
+                        <!-- JavaScript技能卡片 -->
                         <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
                             <i class="fab fa-js text-3xl text-yellow-500 mb-2"></i>
                             <p class="font-medium">JavaScript</p>
                         </div>
+                        <!-- React技能卡片 -->
                         <div class="bg-white/70 p-4 rounded-xl text-center card-hover-effect">
                             <i class="fab fa-react text-3xl text-cyan-500 mb-2"></i>
                             <p class="font-medium">React</p>
@@ -375,6 +410,7 @@
     <footer class="py-5 text-gray-500 text-center border-t border-gray-200 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p>&copy; <span id="year"></span> 潇. 基于学习目的，持续迭代中。</p>
+            <!-- 社交链接 -->
             <div class="mt-2 flex justify-center space-x-4">
                 <a href="#" class="text-gray-400 social-icon">
                     <i class="fab fa-github text-xl"></i>
@@ -391,6 +427,7 @@
 
     <!-- JavaScript代码 -->
     <script>
+        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
             // 自动更新版权年份
             document.getElementById('year').textContent = new Date().getFullYear();
@@ -400,16 +437,19 @@
             const mobileNav = document.getElementById('mobile-nav');
             const closeNav = document.getElementById('close-nav');
 
+            // 点击导航切换按钮时打开移动端导航
             navToggle.addEventListener('click', () => {
                 mobileNav.classList.add('open');
-                document.body.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
             });
 
+            // 点击关闭按钮时关闭移动端导航
             closeNav.addEventListener('click', () => {
                 mobileNav.classList.remove('open');
-                document.body.style.overflow = '';
+                document.body.style.overflow = ''; // 恢复背景滚动
             });
 
+            // 点击导航链接时关闭移动端导航
             mobileNav.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileNav.classList.remove('open');
