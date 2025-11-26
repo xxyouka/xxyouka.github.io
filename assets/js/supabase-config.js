@@ -1,0 +1,2 @@
+window.SUPABASE_URL="https://hpocikkldrvgplkmixsa.supabase.co";
+window.SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhwb2Npa2tsZHJ2Z3Bsa21peHNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxOTI4NzIsImV4cCI6MjA3OTc2ODg3Mn0.Yd0xwOr9zPsot8cWPyNwMEp6og-BBeHDLn2OV1cUqSU";

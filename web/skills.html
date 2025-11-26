@@ -17,15 +17,20 @@
     <meta name="twitter:card" content="summary_large_image"> <!-- Twitter卡片类型设置 -->
     
     <!-- 网站图标和主题色 -->
-    <link rel="icon" href="/images/logo.ico" type="image/x-icon"> <!-- 网站图标 -->
-    <link rel="apple-touch-icon" href="/images/logo.ico"> <!-- iOS设备上使用的图标 -->
+    <link rel="icon" href="../images/logo.ico" type="image/x-icon"> <!-- 网站图标 -->
+    <link rel="apple-touch-icon" href="../images/logo.ico"> <!-- iOS设备上使用的图标 -->
     <meta name="theme-color" content="#6366f1"> <!-- 浏览器地址栏主题色 -->
-    <link rel="manifest" href="/manifest.json"> <!-- PWA应用清单文件 -->
+    <link rel="manifest" href="../manifest.json"> <!-- PWA应用清单文件 -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="canonical" href="https://traexxyoukagithubio2zag.vercel.app/web/skills.html">
     
     <!-- 引入Tailwind CSS框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入Font Awesome图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <script src="../assets/js/site.js" defer></script>
     
     <!-- 自定义CSS样式 -->
     <style>
@@ -503,6 +508,9 @@
             transform: translateY(-3px); /* 向上移动 */
             color: var(--primary-color); /* 颜色变为主色调 */
         }
+        @media (prefers-reduced-motion: reduce) {
+            .animate-fadeInUp, .floating { animation: none !important; }
+        }
     </style>
 </head>
 
@@ -518,7 +526,7 @@
                 
                 <!-- 移动端导航切换按钮 -->
                 <div class="flex items-center sm:hidden">
-                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav"
+                    <button id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="打开导航菜单"
                         class="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 touch-target ml-auto">
                         <i class="fas fa-bars text-gray-700"></i>
                     </button>
@@ -534,6 +542,8 @@
                         class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">学习项目</a>
                     <a href="contact.html"
                         class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">联系我</a>
+                    <a href="messages.html"
+                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">留言列表</a>
                 </nav>
             </div>
         </div>
@@ -545,6 +555,7 @@
         <a href="skills.html" class="active-tab">核心技能</a>
         <a href="projects.html">学习项目</a>
         <a href="contact.html">联系我</a>
+        <a href="messages.html">留言列表</a>
         <!-- 关闭导航按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
             <i class="fas fa-times text-xl"></i>
@@ -746,50 +757,16 @@
 
     <!-- JavaScript代码 -->
     <script>
-        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
-            // 自动更新版权年份
-            document.getElementById('year').textContent = new Date().getFullYear();
-            
-            // 移动端导航交互
-            const navToggle = document.getElementById('nav-toggle');
-            const mobileNav = document.getElementById('mobile-nav');
-            const closeNav = document.getElementById('close-nav');
-
-            // 点击导航切换按钮时打开移动端导航
-            navToggle.addEventListener('click', () => {
-                mobileNav.classList.add('open');
-                document.body.style.overflow = 'hidden'; // 防止背景滚动
-            });
-
-            // 点击关闭按钮时关闭移动端导航
-            closeNav.addEventListener('click', () => {
-                mobileNav.classList.remove('open');
-                document.body.style.overflow = ''; // 恢复背景滚动
-            });
-
-            // 点击导航链接时关闭移动端导航
-            mobileNav.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('open');
-                    document.body.style.overflow = '';
-                });
-            });
-            
-            // 进度条动画
             setTimeout(() => {
                 document.querySelectorAll('.progress').forEach(progress => {
-                    // 根据Tailwind CSS类设置进度条宽度
                     progress.style.width = progress.classList.contains('w-4/5') ? '80%' : '75%';
                 });
-            }, 500); // 延迟500毫秒执行，确保页面加载完成
-            
-            // 添加卡片悬停效果增强
+            }, 500);
             document.querySelectorAll('.skill-card').forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     card.style.transform = 'translateY(-8px) scale(1.02)';
                 });
-                
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'translateY(0) scale(1)';
                 });

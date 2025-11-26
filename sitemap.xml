@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://xxyouka.github.io/</loc>
+    <loc>https://traexxyoukagithubio2zag.vercel.app/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://xxyouka.github.io/web/skills.html</loc>
+    <loc>https://traexxyoukagithubio2zag.vercel.app/web/skills.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://xxyouka.github.io/web/projects.html</loc>
+    <loc>https://traexxyoukagithubio2zag.vercel.app/web/projects.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://xxyouka.github.io/web/contact.html</loc>
+    <loc>https://traexxyoukagithubio2zag.vercel.app/web/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://traexxyoukagithubio2zag.vercel.app/web/messages.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

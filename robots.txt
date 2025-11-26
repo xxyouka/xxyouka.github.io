@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://xxyouka.github.io/sitemap.xml
-# Crawl-delay: 10 (uncomment to throttle if needed)
+Sitemap: https://traexxyoukagithubio2zag.vercel.app/sitemap.xml
+## Crawl-delay: 10
