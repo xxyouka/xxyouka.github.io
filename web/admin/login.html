@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,35 +9,55 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="../../assets/css/global.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print"
+    onload="this.media='all'">
   <script src="../../assets/js/admin-auth.js"></script>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
   <main class="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="frosted-glass p-6 rounded-2xl shadow-lg">
-      <h1 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-shield-alt text-indigo-500 mr-2"></i>后台登录</h1>
-      <form id="login-form" class="space-y-4">
+      <h1 class="text-2xl font-bold mb-2 flex items-center"><i class="fas fa-shield-alt text-indigo-500 mr-2"></i>后台登录</h1>
+      <p class="text-sm text-gray-600 mb-4">请输入账号与密码以进入后台。</p>
+      <form id="login-form" class="space-y-4" autocomplete="off">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2" for="username">账号</label>
-          <input id="username" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="admin" required>
+          <input id="username" type="text" inputmode="text" autocapitalize="off" autocomplete="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="admin" required>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2" for="password">密码</label>
-          <input id="password" type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="admin112233" required>
+          <div class="relative">
+            <input id="password" type="password" autocomplete="current-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 pr-10" placeholder="请输入密码" required>
+            <button type="button" id="toggle" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"><i class="fas fa-eye"></i></button>
+          </div>
+          <div id="caps" class="text-xs text-amber-600 mt-1 hidden">检测到大写锁定已开启</div>
         </div>
-        <div id="error" class="text-sm text-red-600"></div>
-        <button type="submit" class="px-4 py-2 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white shadow w-full">登录</button>
+        <div class="flex items-center justify-between">
+          <label class="flex items-center text-sm text-gray-700"><input id="remember" type="checkbox" class="mr-2">记住登录</label>
+          <a href="../index.html" class="text-sm text-indigo-600 hover:text-indigo-700">返回首页</a>
+        </div>
+        <div id="error" class="text-sm text-red-600" aria-live="polite"></div>
+        <button id="submit" type="submit" class="px-4 py-2 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white shadow w-full">登录</button>
       </form>
     </div>
   </main>
   <script>
-    document.getElementById('login-form').addEventListener('submit', function(e){
-      e.preventDefault();
-      var u=document.getElementById('username').value.trim();
-      var p=document.getElementById('password').value;
-      if(window.AdminAuth && AdminAuth.login(u,p)){ location.href='index.html'; }
-      else{ document.getElementById('error').textContent='账号或密码错误'; }
+    if(window.AdminAuth && AdminAuth.isAuthed()){ location.href='index.html'; }
+    var f=document.getElementById('login-form');
+    var u=document.getElementById('username');
+    var p=document.getElementById('password');
+    var eEl=document.getElementById('error');
+    var btn=document.getElementById('submit');
+    document.getElementById('toggle').addEventListener('click', function(){ p.type=p.type==='password'?'text':'password'; this.innerHTML=p.type==='password'?'<i class="fas fa-eye"></i>':'<i class="fas fa-eye-slash"></i>'; });
+    p.addEventListener('keyup', function(ev){ var on=ev.getModifierState && ev.getModifierState('CapsLock'); document.getElementById('caps').classList.toggle('hidden', !on); });
+    f.addEventListener('submit', function(ev){ ev.preventDefault(); eEl.textContent=''; btn.disabled=true; btn.classList.add('opacity-70');
+      var name=u.value.trim(); var pass=p.value;
+      if(!name||!pass){ eEl.textContent='请填写完整'; btn.disabled=false; btn.classList.remove('opacity-70'); return; }
+      var ok = window.AdminAuth && AdminAuth.login(name, pass, { remember: document.getElementById('remember').checked });
+      if(ok){ location.href='index.html'; }
+      else{ eEl.textContent='账号或密码错误'; btn.disabled=false; btn.classList.remove('opacity-70'); }
     });
   </script>
 </body>
+
 </html>
