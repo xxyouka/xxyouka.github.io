@@ -456,8 +456,6 @@
                         class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">学习项目</a>
                     <a href="contact.html"
                         class="tab-link active-tab text-lg font-medium py-2 px-4 transition duration-200">联系我</a>
-                    <a href="messages.html"
-                        class="tab-link text-lg font-medium py-2 px-4 transition duration-200 hover:text-indigo-500">留言列表</a>
                 </nav>
             </div>
         </div>
@@ -506,10 +504,10 @@
                             </div>
                             <!-- 邮箱输入字段 -->
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
-                                <input type="email" id="email" name="email" required
+                                <label for="contact" class="block text-sm font-medium text-gray-700 mb-2">联系方式</label>
+                                <input type="text" id="contact" name="contact" required inputmode="text" autocomplete="off" autocapitalize="off"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent form-input touch-target"
-                                    placeholder="请输入您的邮箱">
+                                    placeholder="请输入您的联系方式（邮箱/微信/电话）">
                             </div>
                         </div>
 
@@ -531,9 +529,8 @@
 
                         <!-- 提交按钮 -->
                         <div class="text-center animate-fadeInUp delay-400">
-                            <button type="submit"
-                                class="btn-primary mobile-button touch-target">
-                                <i class="fas fa-paper-plane mr-2"></i>发送消息
+                            <button id="submit-btn" type="submit" class="btn-primary mobile-button touch-target">
+                                <i class="fas fa-paper-plane mr-2"></i><span id="submit-text">发送消息</span>
                             </button>
                         </div>
                     </form>
@@ -590,6 +587,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.4/dist/umd/supabase.min.js"></script>
     <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/supabase-util.js"></script>
     <!-- JavaScript 功能 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -615,37 +613,23 @@
                         return;
                     }
 
-                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const submitBtn = document.getElementById('submit-btn');
+                    const submitText = document.getElementById('submit-text');
                     if(submitBtn) submitBtn.disabled = true;
-                    async function ensureClient(){
-                        function loadScript(src){
-                            return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});
-                        }
-                        if(typeof window.supabase==='undefined'){
-                            try{ await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.4/dist/umd/supabase.min.js'); }
-                            catch(e){ try{ await loadScript('https://unpkg.com/@supabase/supabase-js@2.47.4/dist/umd/supabase.min.js'); }catch(err){ return false; } }
-                        }
-                        if(!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY){
-                            try{ await loadScript('../assets/js/supabase-config.js'); }catch(e){ return false; }
-                        }
-                        const start=Date.now();
-                        while(!(window.supabase && window.supabase.createClient)){
-                            if(Date.now()-start>5000) return false;
-                            await new Promise(r=>setTimeout(r,100));
-                        }
-                        return true;
-                    }
-                    const ok = await ensureClient();
-                    if(!ok){
+                    if(submitText) submitText.textContent = '发送中...';
+                    async function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});}
+                    if(!window.SupaUtil){ try{ await loadScript('../assets/js/supabase-util.js'); }catch(e){} }
+                    const client = await (window.SupaUtil ? window.SupaUtil.getClient() : null);
+                    if(!client){
                         showNotification('配置错误：Supabase 未加载', 'error');
                         if(submitBtn) submitBtn.disabled = false;
                         return;
                     }
-                    const client = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
                     const formData = new FormData(contactForm);
+                    const contact = formData.get('contact');
                     const data = {
                         name: formData.get('name'),
-                        email: formData.get('email'),
+                        email: contact,
                         subject: formData.get('subject'),
                         message: formData.get('message')
                     };
@@ -653,6 +637,8 @@
                     // 简单验证 - 检查所有必填字段是否已填写
                     if (!data.name || !data.email || !data.subject || !data.message) {
                         showNotification('请填写所有必填字段', 'error');
+                        if(submitBtn) submitBtn.disabled = false;
+                        if(submitText) submitText.textContent = '发送消息';
                         return;
                     }
 
@@ -668,6 +654,7 @@
                         showNotification(`发送失败：${err.message}`, 'error');
                     } finally {
                         if(submitBtn) submitBtn.disabled = false;
+                        if(submitText) submitText.textContent = '发送消息';
                     }
                 });
             }
