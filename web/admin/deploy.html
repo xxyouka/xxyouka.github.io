@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>部署指南 | 潇</title>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+</head>
+<body class="min-h-screen">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div class="frosted-glass p-6 rounded-xl">
+      <h1 class="text-2xl font-bold mb-4">部署指南</h1>
+      <ol class="list-decimal pl-6 text-gray-700 space-y-2">
+        <li>Vercel：导入项目，设置根目录并部署。</li>
+        <li>Supabase：创建项目，获取 <code>anon_key</code> 与 <code>project_url</code>，填入 <code>assets/js/supabase-config.js</code>。</li>
+        <li>Authentication：在 Supabase 控制台添加 Redirect URLs，例如部署域名。</li>
+        <li>数据库：执行本仓库 <code>supabase/migrations</code> 下的迁移，创建表与策略。</li>
+        <li>验证：打开 <code>/web/admin/tests.html</code> 运行端到端测试。</li>
+      </ol>
+      <h2 class="text-lg font-semibold mt-6 mb-2">性能优化建议</h2>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>启用 CDN（Tailwind/FontAwesome 已异步）与预连接。</li>
+        <li>按需加载脚本并使用 UMD 构建，确保全局兼容。</li>
+        <li>列表分页与范围查询，避免一次性加载过多数据。</li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>

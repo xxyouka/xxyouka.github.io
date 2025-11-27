@@ -32,11 +32,13 @@
     
     <!-- 引入 Font Awesome 图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="../assets/css/site.css">
-    <script src="../assets/js/site.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <script src="../assets/js/global.js" defer></script>
 
-    <!-- 自定义样式 -->
-    <style>
+    <link rel="stylesheet" href="../assets/css/pages/contact.css">
+    <meta name="keywords" content="联系, 留言, 邮箱, 微信, 电话">
+    <!-- 自定义样式（已外移到 assets/css/pages/contact.css，禁用内联） -->
+    <style type="text/disabled">
         /* CSS变量定义，便于维护和统一管理颜色 */
         :root {
             --primary-color: #6366f1; /* 主色调 - 靛蓝色 */
@@ -467,7 +469,6 @@
         <a href="skills.html">核心技能</a>
         <a href="projects.html">学习项目</a>
         <a href="contact.html" class="active-tab">联系我</a>
-        <a href="messages.html">留言列表</a>
         <!-- 关闭导航按钮 -->
         <button id="close-nav" class="absolute top-6 right-6 touch-target p-3 text-gray-600 hover:text-gray-900">
             <i class="fas fa-times text-xl"></i>
@@ -588,78 +589,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.4/dist/umd/supabase.min.js"></script>
     <script src="../assets/js/supabase-config.js"></script>
     <script src="../assets/js/supabase-util.js"></script>
-    <!-- JavaScript 功能 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const notification = document.getElementById('notification');
-            function showNotification(message, type = 'success') {
-                notification.textContent = message; // 设置通知内容
-                notification.className = `notification ${type}`; // 设置通知类型样式
-                notification.classList.add('show'); // 添加显示类，触发动画
-                
-                // 4秒后自动隐藏通知
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 4000);
-            }
-
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-
-                    // 防止机器人提交 honeypot 字段
-                    if (contactForm.querySelector('input[name="_gotcha"]').value) {
-                        return;
-                    }
-
-                    const submitBtn = document.getElementById('submit-btn');
-                    const submitText = document.getElementById('submit-text');
-                    if(submitBtn) submitBtn.disabled = true;
-                    if(submitText) submitText.textContent = '发送中...';
-                    async function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});}
-                    if(!window.SupaUtil){ try{ await loadScript('../assets/js/supabase-util.js'); }catch(e){} }
-                    const client = await (window.SupaUtil ? window.SupaUtil.getClient() : null);
-                    if(!client){
-                        showNotification('配置错误：Supabase 未加载', 'error');
-                        if(submitBtn) submitBtn.disabled = false;
-                        return;
-                    }
-                    const formData = new FormData(contactForm);
-                    const contact = formData.get('contact');
-                    const data = {
-                        name: formData.get('name'),
-                        email: contact,
-                        subject: formData.get('subject'),
-                        message: formData.get('message')
-                    };
-
-                    // 简单验证 - 检查所有必填字段是否已填写
-                    if (!data.name || !data.email || !data.subject || !data.message) {
-                        showNotification('请填写所有必填字段', 'error');
-                        if(submitBtn) submitBtn.disabled = false;
-                        if(submitText) submitText.textContent = '发送消息';
-                        return;
-                    }
-
-                    try{
-                        const { error } = await client.from('contact_messages').insert(data);
-                        if (error) {
-                            showNotification(`发送失败：${error.message}`, 'error');
-                        } else {
-                            showNotification('已发送成功');
-                            contactForm.reset();
-                        }
-                    } catch(err){
-                        showNotification(`发送失败：${err.message}`, 'error');
-                    } finally {
-                        if(submitBtn) submitBtn.disabled = false;
-                        if(submitText) submitText.textContent = '发送消息';
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="../assets/js/pages/contact.js" defer></script>
+    
 </body>
 
 </html>

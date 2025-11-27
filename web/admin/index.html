@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>后台系统 | 潇</title>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.4/dist/umd/supabase.min.js"></script>
+  <script src="../../assets/js/supabase-config.js"></script>
+  <script src="../../assets/js/supabase-util.js"></script>
+  <script src="../../assets/js/admin.js"></script>
+</head>
+<body class="min-h-screen">
+  <header class="frosted-glass sticky top-0 z-20 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold"><i class="fas fa-shield-alt mr-2 text-indigo-500"></i><span class="logo-text">后台系统</span></h1>
+        <nav class="hidden sm:flex space-x-2">
+          <a class="tab-link active-tab py-2 px-4">概览</a>
+          <a href="../messages.html" class="tab-link py-2 px-4">留言</a>
+          <a href="api-docs.html" class="tab-link py-2 px-4">API文档</a>
+          <a href="tests.html" class="tab-link py-2 px-4">测试</a>
+          <a href="deploy.html" class="tab-link py-2 px-4">部署指南</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section class="frosted-glass p-6 rounded-xl">
+        <h2 class="text-lg font-semibold mb-3">实时统计</h2>
+        <div class="text-sm text-gray-600">总留言：<span id="count-msg">--</span></div>
+        <div class="text-sm text-gray-600">今日留言：<span id="count-today">--</span></div>
+        <div class="text-sm text-gray-600">API错误次数（24h）：<span id="count-error">--</span></div>
+      </section>
+      <section class="frosted-glass p-6 rounded-xl md:col-span-2">
+        <h2 class="text-lg font-semibold mb-3">最近活动</h2>
+        <div id="recent" class="text-sm text-gray-700 space-y-2"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (async ()=>{
+      const c = await Admin.getClient();
+      if(!c) return;
+      const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+      const { count: total } = await c.from('contact_messages').select('*', { count:'exact', head:true });
+      document.getElementById('count-msg').textContent = total||0;
+      const { count: today } = await c.from('contact_messages').select('*', { count:'exact', head:true }).gte('created_at', todayStart.toISOString());
+      document.getElementById('count-today').textContent = today||0;
+      const { count: err24 } = await c.from('api_logs').select('*', { count:'exact', head:true }).gte('created_at', new Date(Date.now()-24*3600*1000).toISOString()).not('error','is',null);
+      document.getElementById('count-error').textContent = err24||0;
+      const { data } = await c.from('api_logs').select('*').order('created_at', { ascending:false }).limit(10);
+      document.getElementById('recent').innerHTML = (data||[]).map(x=>`<div>
+        <span class="text-gray-500">${new Date(x.created_at).toLocaleString()}</span>
+        <span class="ml-2">${x.direction.toUpperCase()}</span>
+        <span class="ml-2">${x.endpoint}</span>
+        ${x.status_code?`<span class="ml-2">${x.status_code}</span>`:''}
+        ${x.latency_ms?`<span class="ml-2">${x.latency_ms}ms</span>`:''}
+        ${x.error?`<span class="ml-2 text-red-600">${x.error}</span>`:''}
+      </div>`).join('');
+      try{ c.channel('admin').on('postgres_changes',{event:'INSERT',schema:'public',table:'api_logs'},()=>location.reload()).subscribe(); }catch(e){}
+    })();
+  </script>
+</body>
+</html>
